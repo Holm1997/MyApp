@@ -15,7 +15,7 @@ const MIDDLEWARE = [
 //Main
 
 $router->get('', 'main/index.php')->only('auth');
-
+$router->post('','main/index.php')->only('auth');
 
 
 //login

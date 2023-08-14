@@ -64,19 +64,23 @@ if ($_POST['repeat']) {
 
 } else {
 
-
-$fillable = ['place_id', 'subject', 'category_id'];
-
-
-
+$room_name = $_POST['place'];
+        
+$room = db()->query("SELECT id FROM place where name = '$room_name'")->find();
 
 
 
-$data =load($fillable);
+$fillable = ['subject', 'category_id'];
 
 
+$data = load($fillable);
 
-$room = $data['place_id'];
+$data['place_id'] = $room['id'];
+dd($data);
+$room_name = $_POST['place'];
+
+$room = db()->query("SELECT id FROM place where name = '$room_name'")->find();
+
 
 
 

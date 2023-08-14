@@ -9,59 +9,69 @@ require VIEWS . '/includes/ticketsidebar.php';
 <form action="ticket/create" method="post">
 
 
-<h4>Выберите категорию оборудования</h4>
-<?php foreach ($categories as $category) : ?>
-<div class="form-check">
-  <input name="category_id" class="form-check-input border border-primary" type="radio" value="<?= $category['id'] ?>" id="flexCheckDefault">
-  <label class="form-check-label" for="flexCheckDefault">
-  <?= $category['name'] ?>
-  </label>
+<fieldset class="row mb-3">
+    <legend class="col-form-label col-sm-3 pt-0"><h5>Выберите категорию оборудования</h5></legend>
+    <div class="col-sm-5">
+    <?php foreach ($categories as $category) : ?>
+      <div class="form-check">
+        <input class="form-check-input border border-primary" type="radio" name="category_id" id="category" value="<?= $category['id'] ?>">
+        <label class="form-check-label" for="category">
+          <?= $category['name'] ?>
+        </label>
+      </div>
+      <?php endforeach; ?>
+    </div>
+</fieldset>
+
+<div class="row mb-3">
+    <label for="subject" class="col-sm-3 col-form-label"><h5>Причина обращения</h5></label>
+    <div class="col-sm-5">
+      <input name="subject" type="text" class="form-control border border-primary" id="subject">
+    </div>
 </div>
-<?php endforeach; ?>
 
-
-
-
-<div class="mb-3">
-  <label for="subject" class="form-label">Причина обращения</label>
-  <input name="subject" type="text" class="form-control" id="subject" placeholder="Введите причину обращения">
+<div class="row mb-3">
+<label for="exampleDataList" class="col-sm-3 col-form-label"><h5>Кабинет/помещение</h5></label>
+<div class="col-sm-5">
+<input name="place" type="text" class="form-control border border-primary" list="datalistOptions" id="exampleDataList" placeholder="Введите кабинет...">
+<datalist id="datalistOptions">
+    <?php foreach ($rooms as $room) : ?>
+        <option value="<?= $room['name']?>"><?= $room['phone']?>
+    <?php endforeach;?>
+</datalist>
+</div>
 </div>
 
-
-<label class="input-group-text" for="client">Заявитель</label>
-<select id="client" class="form-select" size="10" name="place_id">
-<?php foreach ($rooms as $room) : ?>
-  <option value="<?= $room['id'] ?>"><?= $room['name'] .' ---------- '. $room['phone']?></option>
-<?php endforeach; ?>
-</select>
 
 
 
 
 
 <?php if ($_SESSION['user']['roleid'] == 1) : ?>
-<h4>Назначить сотрудника/сотрудников</h4>
-<?php foreach ($users as $user) : ?>
-<div class="form-check">
-  <input name="user_id[<?=$user['id'] ?>]" class="form-check-input" type="checkbox" value="<?= $user['id'] ?>" id="flexCheckDefault">
-  <label class="form-check-label" for="flexCheckDefault">
-  <?= $user['lname'] .' '. $user['fname'] ?>
-  </label>
-</div>
-<?php endforeach; ?>
+
+<fieldset class="row mb-3">
+<legend class="col-form-label col-sm-3 pt-0"><h5>Назначить сотрудника/сотрудников</h5></legend>
+<div class="col-sm-5">
+      <?php foreach ($users as $user) : ?>
+      <div class="form-check">
+        <input class="form-check-input border border-primary" type="checkbox" name="category_id" id="user" value="<?= $user['id'] ?>">
+        <label class="form-check-label" for="user">
+        <?= $user['lname'] .' '. $user['fname'] ?>
+        </label>
+      </div>
+      <?php endforeach; ?>
+    </div>
+</fieldset>
 <?php else : ?>
   <input name="user_id" type="hidden" value="<?= $user ?>">
 <?php endif; ?>
 
 
-
-
-
-
-
-
+<div class="row mb-3 text-center">
+<div class="col-12">
 <button type="submit" class="btn btn-primary">Создать заявку</button>
-
+</div>
+</div>
 
 
 
