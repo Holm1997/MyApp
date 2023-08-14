@@ -134,3 +134,14 @@ function dep_for_place($place) {
 }
 
 
+function numbers_of_new_tickets($user_id) {
+        $nums = db()->query("SELECT count(tu.ticket_id) nums FROM ticket_user tu
+                        INNER JOIN ticket t ON tu.ticket_id = t.id
+                        WHERE tu.user_id = '$user_id' and (t.ticket_status = 'Новая заявка' or t.ticket_status = 'Повторная заявка')
+                        GROUP BY user_id")->find();
+        if ($nums) {
+                return $nums['nums'];
+        } else {
+                return 0;
+        }
+}

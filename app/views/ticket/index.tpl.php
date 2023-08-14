@@ -41,11 +41,15 @@ require_once VIEWS . '/includes/ticketsidebar.php';
             <th scope="row">
             <?php if ($ticket['ticket_status'] == 'В работе') : ?>
   
-  <div class="spinner-border spinner-border-sm text-warning" role="status">
-      <span class="visually-hidden">Loading...</span>
-  </div>
+                <div class="spinner-border spinner-border-sm text-warning" role="status">
+                <span class="visually-hidden">Loading...</span>
+                </div>
 
-<?php endif;?>
+            <?php elseif (($ticket['ticket_status'] == 'Новая заявка') or ($ticket['ticket_status'] == 'Новая заявка')) : ?>
+              <div class="spinner-grow spinner-grow-sm text-danger" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            <?php endif; ?>
               <?= $ticket['id'] ?>
  
             </th>
@@ -104,7 +108,20 @@ require_once VIEWS . '/includes/ticketsidebar.php';
         <tr>
       <?php endif;?>
 
-            <th scope="row"><?= $ticket['id'] ?></th>
+            <th scope="row">
+            <?php if ($ticket['ticket_status'] == 'В работе') : ?>
+  
+              <div class="spinner-border spinner-border-sm text-warning" role="status">
+                  <span class="visually-hidden">Loading...</span>
+              </div>
+
+            <?php elseif (($ticket['ticket_status'] == 'Новая заявка') or ($ticket['ticket_status'] == 'Новая заявка')) : ?>
+              <div class="spinner-grow spinner-grow-sm text-danger" role="status">
+                  <span class="visually-hidden">Loading...</span>
+              </div>
+            <?php endif; ?>
+            <?= $ticket['id'] ?>
+            </th>
             <td><?= $ticket['creation_date'] ?></td>
 
       <?php if ($ticket['ticket_status'] == 'В работе') : ?>

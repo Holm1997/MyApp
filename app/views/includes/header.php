@@ -20,11 +20,28 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <?php if (explode("/", $_SERVER['REQUEST_URI'])[1] == 'ticket') : ?>
-            <a class="nav-link active position-relative" aria-current="page" href="/ticket">Заявки</a>
+            <a class="nav-link active position-relative" aria-current="page" href="/ticket">Заявки
+            <?php if (numbers_of_new_tickets($_SESSION['user']['id']) != 0) :?>
+              <span class="position-absolute top-25 start-75 translate-middle badge rounded-pill bg-danger">
+                <?= numbers_of_new_tickets($_SESSION['user']['id']) ?>
+              <span class="visually-hidden">unread messages</span>
+              </span>
+            <?php endif; ?>
+            </a>
           <?php else : ?>
-            <a class="nav-link" href="/ticket">Заявки</a>
+            <a class="nav-link" href="/ticket">Заявки
+            <?php if (numbers_of_new_tickets($_SESSION['user']['id']) != 0) :?>
+              <span class="position-absolute top-25 start-75 translate-middle badge rounded-pill bg-danger">
+                <?= numbers_of_new_tickets($_SESSION['user']['id']) ?>
+              <span class="visually-hidden">unread messages</span>
+              </span>
+            <?php endif; ?>
+            </a>
           <?php endif; ?>
         </li>
+
+
+
 
         
         <li class="nav-item">

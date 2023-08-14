@@ -1,7 +1,7 @@
 <?php
 
 
-$rooms = db()->query("SELECT * FROM place")->findAll();
+$rooms = db()->query("SELECT * FROM place ORDER BY name")->findAll();
 
 
 

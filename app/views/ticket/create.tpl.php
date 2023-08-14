@@ -12,7 +12,7 @@ require VIEWS . '/includes/ticketsidebar.php';
 <h4>Выберите категорию оборудования</h4>
 <?php foreach ($categories as $category) : ?>
 <div class="form-check">
-  <input name="category_id" class="form-check-input" type="checkbox" value="<?= $category['id'] ?>" id="flexCheckDefault">
+  <input name="category_id" class="form-check-input border border-primary" type="radio" value="<?= $category['id'] ?>" id="flexCheckDefault">
   <label class="form-check-label" for="flexCheckDefault">
   <?= $category['name'] ?>
   </label>
@@ -29,11 +29,12 @@ require VIEWS . '/includes/ticketsidebar.php';
 
 
 <label class="input-group-text" for="client">Заявитель</label>
-<select id="client" class="form-select" size="3" name="place_id">
+<select id="client" class="form-select" size="10" name="place_id">
 <?php foreach ($rooms as $room) : ?>
   <option value="<?= $room['id'] ?>"><?= $room['name'] .' ---------- '. $room['phone']?></option>
 <?php endforeach; ?>
 </select>
+
 
 
 
