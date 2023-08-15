@@ -55,7 +55,7 @@ CREATE TABLE `client` (
   UNIQUE KEY `phone` (`phone`),
   KEY `place_id` (`place_id`),
   CONSTRAINT `client_ibfk_1` FOREIGN KEY (`place_id`) REFERENCES `place` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +64,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES (17,'Иванов И.И.',NULL,48),(18,'Петров В.И.',NULL,49),(22,'Сазонов В.И.',NULL,50),(23,'Фиронова Е.В.',NULL,51),(24,'Александр',NULL,54),(25,'Петросян И.В',NULL,50),(26,'Мещерин М.Д.',NULL,55);
+INSERT INTO `client` VALUES (17,'Иванов И.И.',NULL,48),(18,'Петров В.И.',NULL,49),(22,'Сазонов В.И.',NULL,50),(23,'Фиронова Е.В.',NULL,51),(24,'Александр',NULL,54),(25,'Петросян И.В',NULL,50),(26,'Мещерин М.Д.',NULL,55),(27,'Ганеива Т.В.',NULL,56);
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -106,7 +106,7 @@ CREATE TABLE `departament` (
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,7 +115,7 @@ CREATE TABLE `departament` (
 
 LOCK TABLES `departament` WRITE;
 /*!40000 ALTER TABLE `departament` DISABLE KEYS */;
-INSERT INTO `departament` VALUES (14,'ЗВО'),(13,'ПВТ'),(16,'УКиТР');
+INSERT INTO `departament` VALUES (18,'ВВВ'),(17,'ВУС'),(14,'ЗВО'),(13,'ПВТ'),(16,'УКиТР');
 /*!40000 ALTER TABLE `departament` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,7 +142,7 @@ CREATE TABLE `departament_place` (
 
 LOCK TABLES `departament_place` WRITE;
 /*!40000 ALTER TABLE `departament_place` DISABLE KEYS */;
-INSERT INTO `departament_place` VALUES (13,48),(13,50),(14,49),(14,51),(16,54);
+INSERT INTO `departament_place` VALUES (13,48),(13,50),(14,49),(14,51),(16,54),(17,56),(13,55),(18,57);
 /*!40000 ALTER TABLE `departament_place` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,7 +161,7 @@ CREATE TABLE `device` (
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `device_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,7 +170,7 @@ CREATE TABLE `device` (
 
 LOCK TABLES `device` WRITE;
 /*!40000 ALTER TABLE `device` DISABLE KEYS */;
-INSERT INTO `device` VALUES (17,'',NULL,6),(18,'',NULL,4),(19,'',NULL,3),(20,'',NULL,6),(21,'',NULL,1),(22,'',NULL,1),(23,'',NULL,1),(24,'',NULL,1),(25,'',NULL,1),(26,'',NULL,3),(27,'',NULL,1),(28,'hp layzerjet 1200',NULL,1),(29,'hp layzerjet 1200',NULL,1),(30,'',NULL,7);
+INSERT INTO `device` VALUES (17,'',NULL,6),(18,'',NULL,4),(19,'',NULL,3),(20,'',NULL,6),(21,'',NULL,1),(22,'',NULL,1),(23,'',NULL,1),(24,'',NULL,1),(25,'',NULL,1),(26,'',NULL,3),(27,'',NULL,1),(28,'hp layzerjet 1200',NULL,1),(29,'hp layzerjet 1200',NULL,1),(30,'',NULL,7),(31,'LENOVO',NULL,3),(32,'Бутылка палпи',NULL,1),(33,'Бутылка палпи',NULL,1);
 /*!40000 ALTER TABLE `device` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,7 +187,7 @@ CREATE TABLE `place` (
   `phone` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,7 +196,7 @@ CREATE TABLE `place` (
 
 LOCK TABLES `place` WRITE;
 /*!40000 ALTER TABLE `place` DISABLE KEYS */;
-INSERT INTO `place` VALUES (48,'ГЗ, кабинет 1107','33-15'),(49,'ГЗ, кабинет 1303','45-12'),(50,'ГЗ ж-107','67-87'),(51,'2ой ГУМ, 866 к.','12-34'),(52,'ГЗ, Ж 103','77-88'),(53,'ГЗ, кабинет 999','66-89'),(54,'ГЗ, к.1124','28-89'),(55,'2ой ГУМ, к. 923','11-11');
+INSERT INTO `place` VALUES (48,'ГЗ, кабинет 1107','33-15'),(49,'ГЗ, кабинет 1303','45-12'),(50,'ГЗ ж-107','67-87'),(51,'2ой ГУМ, 866 к.','12-34'),(52,'ГЗ, Ж 103','77-88'),(53,'ГЗ, кабинет 999','66-89'),(54,'ГЗ, к.1124','28-89'),(55,'2ой ГУМ, к. 923','11-11'),(56,'ГЗ, В-118','17-40'),(57,'ГЗ, к. 99999','22-22');
 /*!40000 ALTER TABLE `place` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -226,7 +226,7 @@ CREATE TABLE `ticket` (
   CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`) ON DELETE CASCADE,
   CONSTRAINT `ticket_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE,
   CONSTRAINT `ticket_ibfk_3` FOREIGN KEY (`place_id`) REFERENCES `place` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -235,7 +235,7 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
-INSERT INTO `ticket` VALUES (79,'не работает блок питания','Перегорел БП. нужна замена','Не выполнена',17,1,'2023-08-11 14:08:15','2023-08-11 14:11:43','2023-08-15 13:18:09',48,NULL),(80,'не работает блок питания',NULL,'В работе',25,3,'2023-08-14 11:02:34','2023-08-14 11:09:56',NULL,50,NULL),(81,'Нет отклика от сервера','Были проблемы с сетью, все устранил -работает','Выполнена успешно',17,7,'2023-08-14 11:10:36','2023-08-14 11:38:33','2023-08-15 14:50:23',48,NULL),(82,'Не сканирует в папку scan','Включил SMB','Выполнена успешно',24,1,'2023-08-14 11:21:08','2023-08-14 11:49:42','2023-08-14 11:52:23',54,NULL),(83,'Отьебнуло','Не получилось починить','Не выполнена',24,3,'2023-08-14 11:53:27','2023-08-14 11:54:15','2023-08-14 11:54:31',54,NULL),(84,'Замена блока питания',NULL,'Повторная заявка',17,1,'2023-08-15 13:19:45',NULL,NULL,48,79),(86,'Не работает мышка',NULL,'Новая заявка',NULL,6,'2023-08-15 13:45:23',NULL,NULL,50,NULL),(89,'Не печатает, не сканирует','Удалил МФУ из списка устройств, добавил его по IP-адресу, установил драйвера','Выполнена успешно',17,1,'2023-08-15 13:59:20','2023-08-15 14:00:02','2023-08-15 14:03:57',48,NULL),(96,'Принеси попить ))',NULL,'Новая заявка',26,1,'2023-08-15 14:41:11',NULL,NULL,55,NULL);
+INSERT INTO `ticket` VALUES (79,'не работает блок питания','Перегорел БП. нужна замена','Не выполнена',17,1,'2023-08-11 14:08:15','2023-08-11 14:11:43','2023-08-15 13:18:09',48,NULL),(80,'не работает блок питания',NULL,'В работе',25,3,'2023-08-14 11:02:34','2023-08-14 11:09:56',NULL,50,NULL),(81,'Нет отклика от сервера','Были проблемы с сетью, все устранил -работает','Выполнена успешно',17,7,'2023-08-14 11:10:36','2023-08-14 11:38:33','2023-08-15 14:50:23',48,NULL),(82,'Не сканирует в папку scan','Включил SMB','Выполнена успешно',24,1,'2023-08-14 11:21:08','2023-08-14 11:49:42','2023-08-14 11:52:23',54,NULL),(83,'Отьебнуло','Не получилось починить','Не выполнена',24,3,'2023-08-14 11:53:27','2023-08-14 11:54:15','2023-08-14 11:54:31',54,NULL),(84,'Замена блока питания',NULL,'Повторная заявка',17,1,'2023-08-15 13:19:45',NULL,NULL,48,79),(86,'Не работает мышка',NULL,'Новая заявка',NULL,6,'2023-08-15 13:45:23',NULL,NULL,50,NULL),(89,'Не печатает, не сканирует','Удалил МФУ из списка устройств, добавил его по IP-адресу, установил драйвера','Выполнена успешно',17,1,'2023-08-15 13:59:20','2023-08-15 14:00:02','2023-08-15 14:03:57',48,NULL),(96,'Принеси попить ))','Максим Дмитриевич сам пришёл и попил из оборудования','Выполнена успешно',26,1,'2023-08-15 14:41:11','2023-08-15 15:32:16','2023-08-15 15:34:19',55,NULL),(97,'Выключается экран','Переустановили видеодрайвера','Выполнена успешно',27,3,'2023-08-15 15:24:31','2023-08-15 15:24:38','2023-08-15 15:31:53',56,NULL),(98,'не работает блок питания',NULL,'Новая заявка',NULL,2,'2023-08-15 15:39:01',NULL,NULL,57,NULL);
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -262,7 +262,7 @@ CREATE TABLE `ticket_device` (
 
 LOCK TABLES `ticket_device` WRITE;
 /*!40000 ALTER TABLE `ticket_device` DISABLE KEYS */;
-INSERT INTO `ticket_device` VALUES (82,25),(83,26),(79,27),(89,28),(89,29),(81,30);
+INSERT INTO `ticket_device` VALUES (82,25),(83,26),(79,27),(89,28),(89,29),(81,30),(97,31),(96,32),(96,33);
 /*!40000 ALTER TABLE `ticket_device` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -289,7 +289,7 @@ CREATE TABLE `ticket_user` (
 
 LOCK TABLES `ticket_user` WRITE;
 /*!40000 ALTER TABLE `ticket_user` DISABLE KEYS */;
-INSERT INTO `ticket_user` VALUES (79,2),(80,2),(81,2),(82,4),(83,4),(84,2),(NULL,2),(86,2),(89,18),(96,18);
+INSERT INTO `ticket_user` VALUES (79,2),(80,2),(81,2),(82,4),(83,4),(84,2),(NULL,2),(86,2),(89,18),(96,18),(97,18),(98,2),(98,4),(98,18);
 /*!40000 ALTER TABLE `ticket_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,4 +359,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-15 15:06:23
+-- Dump completed on 2023-08-15 15:57:58
