@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // Добавление заявителя в БД //
 // Если пользователь выбран из списка //
 
-    if ($_POST['cname']){
+    if ($_POST['cname'] and !$_POST['cname_write']){
 
         $pl =$_POST['place_id'];
 
@@ -24,9 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
                 echo "NO";
         }
+        $_SESSION['success'] = 'Заявитель успешно добавлен.';
 
 
-    } elseif ($_POST['cname_write']) {
+    } elseif ($_POST['cname_write'] and !$_POST['cname']) {
 
         $pl =$_POST['place_id'];
 
@@ -43,22 +44,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 db()->query("UPDATE ticket SET client_id = '$cl' WHERE id = '$id'");
 
             }
+            
+
         }
+        $_SESSION['success'] = 'Заявитель успешно добавлен.';
+        redirect("/ticket/show?id=$id");
+        
 
-
-        die;
-
+    } elseif ($_POST['cname'] and $_POST['cname_write']) {
+        $_SESSION['error'] = 'ОШИБКА: При добавлении заявителя нужно выбрать один пункт.';
+        redirect("/ticket/show?id=$id");
     }
 
 
-    if ($_POST['departament']) {
+    if ($_POST['departament'] and !$_POST['dname_write']) {
 
         $pl = $_POST['place_id'];
         $dep = $_POST['departament'];
         if (db()->query("INSERT INTO departament_place (`departament_id`,`place_id`) VALUES ('$dep','$pl')")) {
-                redirect("/client/departament");
+                $_SESSION['succes'] = 'УСПЕШНО: подразделение добавлено';
+        }
+        redirect("/ticket/show?id=$id");
+
+    } elseif ($_POST['dname_write'] and !$_POST['departament']) {
+        $pl = $_POST['place_id'];
+        $dep = $_POST['dname_write'];
+        if (db()->query("INSERT INTO departament (`name`) VALUES ('$dep')")) {
+
+            $dep_id = db()->query("SELECT id from departament WHERE name = '$dep'")->find();
+            $dep_id = $dep_id['id'];
+
+            if (db()->query("INSERT INTO departament_place (`departament_id`,`place_id`) VALUES ('$dep_id','$pl')")) {
+                $_SESSION['succes'] = 'УСПЕШНО: подразделение добавлено';
+                redirect("/ticket/show?id=$id");
+            } else {
+                $_SESSION['error'] = 'ОШИБКА записи в базу данных. Попробуйте снова.';
+                redirect("/ticket/show?id=$id");
+            }
+        } else {
+           $_SESSION['error'] = 'ОШИБКА записи в базу данных. Попробуйте снова.';
+           redirect("/ticket/show?id=$id");
         }
         
+    } elseif ($_POST['dname_write'] and $_POST['departament']) {
+        $_SESSION['error'] = 'ОШИБКА: выберите один бункт при добавлении подразделения';
+        redirect("/ticket/show?id=$id");
     }
 
 

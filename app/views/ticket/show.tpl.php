@@ -6,7 +6,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
 
 
 <div class="container text-center">
-  <div class="row border-bottom border-black bg-primary-subtle text-black">
+  <div class="row border-bottom border-black border-4 bg-primary-subtle text-black">
     
     <div class="col-3">
       <p>Статус: </p>
@@ -34,7 +34,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
         <?php else : ?>
           <h5><font color="orange"><?=$ticket['ticket_status']?></font></h5>
         <?php endif;?>
-      <?php elseif ($ticket['ticket_status'] == 'Повторная заявка') : ?>?>
+      <?php elseif ($ticket['ticket_status'] == 'Повторная заявка') : ?>
         <h5><font color="blue">
           <a href="/ticket/show?id=<?= $ticket['previous'] ?>" style="text-decoration: none;"><?=$ticket['ticket_status'] . ' <= №'. $ticket['previous']?></a>
         </font></h5>
@@ -44,6 +44,8 @@ require_once VIEWS . '/includes/ticketsidebar.php';
         </font></h5>
       <?php endif;?>
     </div>
+  
+
     
     <div class="col-6">
       <h1><?='Заявка № ' . $ticket['id'] ?></h1>
@@ -63,9 +65,10 @@ require_once VIEWS . '/includes/ticketsidebar.php';
 
 
 
+
 <div class="container text-left">
   <div class="row">
-    <div class="col border-end border-black">
+    <div class="col">
       <p>Кабинет/помещение:</p>
       <h4><?=$ticket['name']?></h4>
       <p>Подразделение:</p>
@@ -90,7 +93,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
     <p>Телефон: </p>
     <h4><?= $ticket['phone'] ?><h4>
     </div>
-    <div class="col-6">
+    <div class="col-6 border-start border-end border-black border-2">
   <?php if ($device['name']) : ?>
     <p>Наименование оборудования: </p>
     <h3><?=$ticket['catname'] . ' ' . $device['name']?></h3>
@@ -100,8 +103,13 @@ require_once VIEWS . '/includes/ticketsidebar.php';
   <?php endif; ?>
     <p>Причина обращения: </p>
     <h3><?=$ticket['subject']?></h3>
-    </div>
-    <div class="col border-start border-black"> 
+    <hr>
+  <?php if ($ticket['ticket_status'] == "Не выполнена" or $ticket['ticket_status'] == "Выполнена успешно") : ?>
+   <p>Краткое описание:</p>
+  <h4 style="color: orange;"><?= $ticket['description']?></h4>
+  <?php endif; ?>
+  </div>
+    <div class="col"> 
     <p>Назначенные сотрудники: </p>
   <?php foreach ($users as $user) : ?>
     <h5><?= $user['last_name'] .' ' . $user['first_name'] ?></h5>
@@ -109,29 +117,22 @@ require_once VIEWS . '/includes/ticketsidebar.php';
     </div>
   </div>
  
-  <div class="row border-top border-bottom border-black">
+  <div class="row border-top border-bottom border-4 border-black bg-primary-subtle">
     <div class="col">
     <p>Дата и время создания заявки: </p>
-    <h3><?=$ticket['creation_date']?></h3>
+    <h3 style="color: red;"><?=$ticket['creation_date']?></h3>
     </div>
     <div class="col-6">
     <p>Дата и время начала работ по заявке: </p>
-    <h3><?=$ticket['working_date']?></h3>
+    <h3 style="color: red;"><?=$ticket['working_date']?></h3>
     </div>
     <div class="col">  
     <p>Дата и время закрытия заявки: </p>
-    <h3><?=$ticket['closing_date']?></h3>
+    <h3 style="color: red;"><?=$ticket['closing_date']?></h3>
     </div>
   </div>
-  <?php if ($ticket['ticket_status'] == "Не выполнена" or $ticket['ticket_status'] == "Выполнена успешно") : ?>
-  <div class="row border-bottom border-black">
-    <div class="col">
-    <p>Краткое описание причины обращения и выполненных работ: </p>
-    <h4><?=$ticket['description']?></h4>
-    </div>
-  </div>
-  <?php endif; ?>
 </div>
+
 
 
 
@@ -148,15 +149,23 @@ require_once VIEWS . '/includes/ticketsidebar.php';
 
 <?php elseif ($ticket['ticket_status'] == 'В работе') :?>
 
-<div class="input-group">
-  <span class="input-group-text">Введите название модель оборудования ( необязательно )</span>
-  <input name="device" type="text" class="form-control" aria-label="Username">
+<div class="row mt-3">
+    <label for="device" class="col-sm-4 mb-0">Введите название модель оборудования (необязательно)</label>
+    <div class="col-sm-5">
+      <input name="device" type="text" class="form-control border border-primary" id="subject" placeholder="Введите...">
+    </div>
 </div>
 
-<div class="input-group">
-  <span class="input-group-text">Краткое описание проблемы и выполненных работ</span>
-  <textarea name="description" class="form-control" aria-label="With textarea"></textarea>
+<hr>
+
+<div class="row mb-3">
+    <label for="description" class="col-sm-4">Краткое описание проблемы и выполненных работ</label>
+    <div class="col-6">
+      <textarea name="description" type="text" class="form-control border border-primary" id="description" placeholder="Введите..."></textarea>
+    </div>
 </div>
+
+
 
 <input name="place_id" type="hidden" value="<?= $ticket['pid'] ?>">
 <input name="cid" type="hidden" value="<?= $ticket['cid'] ?>">
@@ -165,7 +174,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
 <input name="close" value="Не выполнена" type="submit" class="btn btn-danger">
 
 <?php elseif ($ticket['ticket_status'] == 'Не выполнена') :?>
-  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#repeat">
+  <button type="button" class="btn btn-danger mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#repeat">
       Создать повторную заявку
   </button>
 
@@ -176,7 +185,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
 </div>
 <table class="table">
     <thead>
-        <tr>
+        <tr class="table-secondary">
             <th scope="col">№ Заявки</th>
             <th scope="col">Дата закрытия заявки</th>
             <th scope="col">Статус заявки</th>
@@ -184,6 +193,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
             <th scope="col">Наименование оборудование</th>
             <th scope="col">Краткое описание проблемы и выполненных работ</th>
             <th scope="col">Назначенные сотрудники</th>
+            <th scope="col"></th>
         </tr>
     </thead>
 
@@ -193,7 +203,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
         <tr class="table-success">
       <?php elseif ($ticket['ticket_status'] == "Не выполнена") : ?>
         <tr class="table-danger">
-      <?php elseif ($ticket['ticket_status'] == "Новая заявка") : ?>
+      <?php elseif ($ticket['ticket_status'] == "Новая заявка" or $ticket['ticket_status'] == "Повторная заявка") : ?>
         <tr class="table-warning">
       <?php else : ?>
         <tr>
@@ -279,13 +289,15 @@ require_once VIEWS . '/includes/ticketsidebar.php';
 
       <?php foreach ($client as $item) : ?>
           <div class="form-check">
-            <input name='cname' class="form-check-input" type="radio" value="<?= $item['id']?>" id="flexCheckDefault">
+            <input name='cname' class="form-check-input border-primary" type="radio" value="<?= $item['id']?>" id="flexCheckDefault">
             <label class="form-check-label" for="flexCheckDefault">
               <p><?= $item['name']?></p>
             </label>
           </div>
         <?php endforeach; ?>
             <input type="hidden" name="place_id" value="<?= $place ?>">
+            <hr>
+            <h5>Если нет в списке</h5>
             <input name="cname_write" type="text" class="form-control border border-primary" placeholder="Введите имя заявителя">
         </div>
         <div class="modal-footer">

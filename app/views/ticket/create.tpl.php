@@ -12,11 +12,11 @@ require VIEWS . '/includes/ticketsidebar.php';
 <fieldset class="row mb-3">
     <legend class="col-form-label col-sm-3 pt-0"><h5>Выберите категорию оборудования</h5></legend>
     <div class="col-sm-5">
-    <?php foreach ($categories as $category) : ?>
+    <?php foreach ($cats as $cat) : ?>
       <div class="form-check">
-        <input class="form-check-input border border-primary" type="radio" name="category_id" id="category" value="<?= $category['id'] ?>">
+        <input name="category_id" class="form-check-input border-primary" type="radio"  id="category" value="<?= $cat['id'] ?>">
         <label class="form-check-label" for="category">
-          <?= $category['name'] ?>
+          <?= $cat['name'] ?>
         </label>
       </div>
       <?php endforeach; ?>
@@ -26,7 +26,7 @@ require VIEWS . '/includes/ticketsidebar.php';
 <div class="row mb-3">
     <label for="subject" class="col-sm-3 col-form-label"><h5>Причина обращения</h5></label>
     <div class="col-sm-5">
-      <input name="subject" type="text" class="form-control border border-primary" id="subject">
+      <input name="subject" type="text" class="form-control border border-primary" id="subject" placeholder="Введите...">
     </div>
 </div>
 
@@ -54,7 +54,7 @@ require VIEWS . '/includes/ticketsidebar.php';
 <div class="col-sm-5">
       <?php foreach ($users as $user) : ?>
       <div class="form-check">
-        <input class="form-check-input border border-primary" type="checkbox" name="category_id" id="user" value="<?= $user['id'] ?>">
+        <input class="form-check-input border border-primary" type="checkbox" name="user_id[<?= $user['id'] ?>]" id="user" value="<?= $user['id'] ?>">
         <label class="form-check-label" for="user">
         <?= $user['lname'] .' '. $user['fname'] ?>
         </label>

@@ -3,7 +3,6 @@
 
 
 if ($_POST['repeat']) {
-        dd($_POST);
 
     $fillable = ['place_id', 'subject', 'category_id','client_id','previous'];
 
@@ -70,17 +69,18 @@ $room = db()->query("SELECT id FROM place where name = '$room_name'")->find();
 
 
 
-$fillable = ['subject', 'category_id'];
+$fillable = ['subject'];
 
 
 $data = load($fillable);
 
-$data['place_id'] = $room['id'];
-dd($data);
+$data['category_id'] = (int)$_POST['category_id'];
+
 $room_name = $_POST['place'];
 
 $room = db()->query("SELECT id FROM place where name = '$room_name'")->find();
-
+$room = $room['id'];
+$data['place_id'] = $room;
 
 
 
@@ -93,7 +93,7 @@ if (db()->query("INSERT INTO ticket (`subject`, `place_id`,`ticket_status`, `cre
                     $t_id = db()->query("SELECT id from ticket where place_id = '$room' order by id desc limit 1")->find();
                     $t_id = $t_id['id'];
                     
-
+                        
                     $data1['ticket_id'] = $t_id;
 
                     if ($_SESSION['user']['roleid'] == 1){
@@ -116,6 +116,7 @@ if (db()->query("INSERT INTO ticket (`subject`, `place_id`,`ticket_status`, `cre
                                         }
                             }
                             $_SESSION['success'] = "Заявка №$t_id успешно создана";
+                            redirect('/ticket');
                     } else {
                             $data1['user_id'] = $_POST['user_id'];
 
@@ -136,6 +137,8 @@ if (db()->query("INSERT INTO ticket (`subject`, `place_id`,`ticket_status`, `cre
 
                     redirect('/ticket');
                     
+} else {
+        echo "FAIL";
 }
 }
 

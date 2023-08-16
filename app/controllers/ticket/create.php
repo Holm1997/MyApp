@@ -24,7 +24,7 @@ $users = db()->query("SELECT u.id, u.first_name as fname, u.last_name as lname, 
     $user = $_SESSION['user']['id'];
 }
 
-$categories = db()->query("SELECT * from category")->findAll();
+$cats = db()->query("SELECT * from category")->findAll();
 
 
 

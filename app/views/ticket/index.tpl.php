@@ -45,7 +45,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
                 <span class="visually-hidden">Loading...</span>
                 </div>
 
-            <?php elseif (($ticket['ticket_status'] == 'Новая заявка') or ($ticket['ticket_status'] == 'Новая заявка')) : ?>
+            <?php elseif (($ticket['ticket_status'] == 'Новая заявка') or ($ticket['ticket_status'] == 'Повторная заявка')) : ?>
               <div class="spinner-grow spinner-grow-sm text-danger" role="status">
                 <span class="visually-hidden">Loading...</span>
               </div>
@@ -115,7 +115,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
                   <span class="visually-hidden">Loading...</span>
               </div>
 
-            <?php elseif (($ticket['ticket_status'] == 'Новая заявка') or ($ticket['ticket_status'] == 'Новая заявка')) : ?>
+            <?php elseif (($ticket['ticket_status'] == 'Новая заявка') or ($ticket['ticket_status'] == 'Повторная заявка')) : ?>
               <div class="spinner-grow spinner-grow-sm text-danger" role="status">
                   <span class="visually-hidden">Loading...</span>
               </div>
