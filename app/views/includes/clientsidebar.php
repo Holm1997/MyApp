@@ -35,3 +35,4 @@
   </li>
 <?php endif; ?>
 </ul>
+<?= get_alerts(); ?>

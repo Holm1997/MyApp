@@ -54,6 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif ($_POST['cname'] and $_POST['cname_write']) {
         $_SESSION['error'] = 'ОШИБКА: При добавлении заявителя нужно выбрать один пункт.';
         redirect("/ticket/show?id=$id");
+    } else {
+        $_SESSION['error'] = 'ОШИБКА: оба пункта не могут быть пустыми при добавлении заявителя';
+        redirect("/ticket/show?id=$id");
     }
 
 
@@ -87,7 +90,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         
     } elseif ($_POST['dname_write'] and $_POST['departament']) {
-        $_SESSION['error'] = 'ОШИБКА: выберите один бункт при добавлении подразделения';
+        $_SESSION['error'] = 'ОШИБКА: выберите один пункт при добавлении подразделения';
+        redirect("/ticket/show?id=$id");
+    } else {
+        $_SESSION['error'] = 'ОШИБКА: оба пункта не могут быть пустыми при добавлении подразделения';
         redirect("/ticket/show?id=$id");
     }
 

@@ -40,6 +40,9 @@ require VIEWS . '/includes/ticketsidebar.php';
     <?php endforeach;?>
 </datalist>
 </div>
+<div class="col-sm-2">
+  <a class="btn btn-outline-primary" href="client/create-place" role="button">Добавить кабинет</a>
+</div>
 </div>
 
 

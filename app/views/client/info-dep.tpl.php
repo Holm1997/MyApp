@@ -4,42 +4,41 @@ require_once VIEWS . '/includes/clientsidebar.php';
 ?>
 
 
+<div class="card mt-3 shadow p-3 mb-5 bg-body-tertiary rounded">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-10 d-flex">
+        <p class="mt-2">Подразделение</p>
+        <h3 class="ms-3"><?=$dep['name']?></h3>
+        
+      </div>
+      <div class="col-2 d-flex">
+            <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#add">Добавить кабинет</button>
+      
+      <?php if($_SESSION['user']['roleid'] == 1) : ?>
 
-
-<div class="container text-left">
-    <div class="row border-bottom border-black">
-
-        <div class="col-3 border-end border-black">
-            <h1><?=$dep['name']?></h1>
-        </div>
-
-        <div class="col-8">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add">
-            Добавить кабинет
-        </button>
-        </div>
-
-        <div class="col-1">
-<?php if($_SESSION['user']['roleid'] == 1) : ?>
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete">
-            Удалить
-            </button>
-<?php endif; ?>
-        </div>
-
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete">Удалить</button>
+      <?php endif; ?>
+      </div>
     </div>
+
+  </div>
+  <div class="card-body">
+    <p class="card-text">Кабинеты и помещения подразделения:</p>
+    
+    <div>
+      <?php foreach ($places as $place) : ?>
+      <a class="btn btn-outline-primary mx-2 my-2" href="client/place/show?id=<?=$place['id']?>" role="button"><?= $place['name'] ?></a>
+      <?php endforeach;?>
+    </div>
+
+
+
+
+  </div>
 </div>
 
-<h5>Кабинеты и помещения подразделения: </h5>
-<?php foreach ($places as $place) : ?>
-  <div class="card" style="width: 18rem;">
-  <a href="/client/place/show?id=<?= $place['id']?>" class="btn btn-secondary">
-  <div class="card-body">
-    <h5 class="card-title"><?= $place['name']?></h5>
-  </div>
-  </a>
-</div>
-<?php endforeach; ?>
+
 
 
 

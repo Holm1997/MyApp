@@ -145,3 +145,31 @@ function numbers_of_new_tickets($user_id) {
                 return 0;
         }
 }
+
+function numbers_of_rooms_in_departament($dep_id) {
+        $nums = db()->query("SELECT d.id, count(*) nums FROM departament d 
+                        INNER JOIN departament_place dp ON dp.departament_id = d.id 
+                        WHERE d.id = '$dep_id'
+                        GROUP BY d.id")->find();
+
+        if ($nums) {
+                return $nums['nums'];
+        } else {
+                return 0;
+        }
+}
+
+
+function numbers_of_clients_in_departament($dep_id) {
+        $nums = db()->query("SELECT d.id, count(c.place_id) nums FROM client c
+                        INNER JOIN place p ON c.place_id = p.id
+                        INNER JOIN departament_place dp ON dp.place_id = p.id
+                        INNER JOIN departament d ON dp.departament_id = d.id
+                        WHERE d.id = '$dep_id'
+                        GROUP BY d.id")->find();
+        if ($nums) {
+                return $nums['nums'];
+        } else {
+                return 0;
+        }
+}
