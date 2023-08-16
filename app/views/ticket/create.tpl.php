@@ -22,12 +22,14 @@ require VIEWS . '/includes/ticketsidebar.php';
       <?php endforeach; ?>
     </div>
 </fieldset>
+<?= isset($validation) ? $validation->listErrors('category_id') : '' ?>
 
 <div class="row mb-3">
     <label for="subject" class="col-sm-3 col-form-label"><h5>Причина обращения</h5></label>
     <div class="col-sm-5">
       <input name="subject" type="text" class="form-control border border-primary" id="subject" placeholder="Введите...">
     </div>
+    <?= isset($validation) ? $validation->listErrors('subject') : '' ?>
 </div>
 
 <div class="row mb-3">
@@ -39,6 +41,7 @@ require VIEWS . '/includes/ticketsidebar.php';
         <option value="<?= $room['name']?>"><?= $room['phone']?>
     <?php endforeach;?>
 </datalist>
+<?= isset($validation) ? $validation->listErrors('place') : '' ?>
 </div>
 <div class="col-sm-2">
   <a class="btn btn-outline-primary" href="client/create-place" role="button">Добавить кабинет</a>

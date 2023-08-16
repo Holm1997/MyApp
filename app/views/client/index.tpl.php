@@ -19,6 +19,7 @@ require_once VIEWS . '/includes/clientsidebar.php';
             <th scope="col">Телефон</th>
             <th scope="col">Место</th>
             <th scope="col">Подразделение</th>
+            <th scope="col"></th>
         </tr>
     </thead>
 
@@ -33,6 +34,7 @@ require_once VIEWS . '/includes/clientsidebar.php';
               <td><?= $client['placephone'] ?></td>
             <?php endif;?>
             <td><?= $client['pname']?></td>
+            <td><?= place_departament($client['pid']) ?></td>
             <td><a href="client/show?id=<?=$client['id']?>">Detail</a></td>
     </tr>
     

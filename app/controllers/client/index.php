@@ -2,7 +2,7 @@
 
 
 
-$clients = db()->query("SELECT c.id, c.name, c.phone, p.name as pname, p.phone as placephone
+$clients = db()->query("SELECT c.id, c.name, c.phone,p.id as pid, p.name as pname, p.phone as placephone
                         FROM client c 
                         inner join place p on c.place_id = p.id")->findAll();
 

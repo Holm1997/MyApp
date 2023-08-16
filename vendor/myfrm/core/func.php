@@ -173,3 +173,15 @@ function numbers_of_clients_in_departament($dep_id) {
                 return 0;
         }
 }
+
+function place_departament($place_id) {
+        $name = db()->query("SELECT d.name FROM departament d
+                        INNER JOIN departament_place dp ON dp.departament_id = d.id
+                        INNER JOIN place p ON dp.place_id = p.id
+                        WHERE p.id = '$place_id'")->find();
+        if ($name) {
+                return $name['name'];
+        } else {
+                return '-----';
+        }
+}

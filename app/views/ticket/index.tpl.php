@@ -148,7 +148,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
     
 
             <td><a href="/ticket/show?id=<?= $ticket['id']?>" >Detail</a></td>
-    </tr>
+      </tr>
     <?php endforeach; ?>
     
   </tbody>

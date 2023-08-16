@@ -4,65 +4,51 @@ require_once VIEWS . '/includes/clientsidebar.php';
 ?>
 
 
-
-
-<div class="container text-left">
-
-  <div class="row border-bottom border-white bg-secondary text-white">
-
-    <div class="col-3 border-end border-white">
-    <h1><?=$client['name']?></h1>
-
-<?php if ($client['phone']) : ?>
+<div class="card mt-3 shadow p-3 mb-5 bg-body-tertiary rounded">
+  <div class="card-header bg-white">
+    <div class="row bg-white">
+      <div class="col-3">
+        
+        <h1><?=$client['name']?></h1>
+        <?php if ($client['phone']) : ?>
     <p><?='Телефон: ' . $client['phone']?></p>
 <?php else : ?>
     <p>Телефон: --- </p>
 <?php endif; ?>
-    </div>
-
-
-    <div class="col-3 text-center border-end border-white">
+        
+      </div>
+      <div class="col-4 text-center">
         <?php if ($departament['name']) : ?>
           <h3><?= $departament['name'] ?></h3>
         <?php else : ?>
           <h3>---</h3>
         <?php endif; ?>
-    </div>
-
-
-    <div class="col-4">
+      </div>
+      <div class="col-4">
         <h3><?= $place['name'] ?></h3>
         <p><?='Телефон: ' . $place['phone']?></p>
     </div>
-
-    <div class="col">
-
-    <?php if($_SESSION['user']['roleid'] == 1) : ?>
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <p>Удалить</p>
-            </button>
-    <?php endif; ?>
-
-    </div>
-
-    
-  </div>
-
-  <div class="row">
-    <div class="col">
+      <div class="col-1">
       
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-        <label class="form-check-label" for="flexRadioDefault1">
-              Default radio
-        </label>
+      <?php if($_SESSION['user']['roleid'] == 1) : ?>
+
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete">Удалить</button>
+      <?php endif; ?>
       </div>
-
-
     </div>
-  </div>
 
+  </div>
+  <div class="card-body">
+    <p class="card-text">Кабинеты и помещения подразделения:</p>
+    
+
+
+
+
+  </div>
 </div>
+
+
 
 
 

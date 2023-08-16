@@ -5,7 +5,7 @@ require_once VIEWS . '/includes/usersidebar.php';
 
 
 
-<div class="container text-left" >
+<div class="container text-left">
     <div class="row border-bottom border-white bg-black text-white">
         <div class="col">
         <h1><?=$user['last_name'] .' '. $user['first_name'] ?></h1>
@@ -26,7 +26,7 @@ require_once VIEWS . '/includes/usersidebar.php';
         
         </div>
     </div>
-    <div class="row border-bottom ">
+    <div class="row border-bottom shadow-lg bg-body-tertiary rounded">
         <div class="col border-end">
             <p>Всего заявок:</p>
             <h3><font color="blue"><?= $all['nums']?></font></h3>

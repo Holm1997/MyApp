@@ -1,6 +1,6 @@
 <?php
 
-
+use myfrm\Validator;
 
 if ($_POST['repeat']) {
 
@@ -63,6 +63,11 @@ if ($_POST['repeat']) {
 
 } else {
 
+if (empty($_POST['subject']) or empty($_POST['category_id']) or empty($_POST['user_id']) or empty($_POST['place'])) {
+        $_SESSION['error'] = "ОШИБКА какое-то поле или какие-то пустые";
+        redirect("/ticket/create");
+}
+
 $room_name = $_POST['place'];
         
 $room = db()->query("SELECT id FROM place where name = '$room_name'")->find();
@@ -74,15 +79,17 @@ $fillable = ['subject'];
 
 $data = load($fillable);
 
+
+
 $data['category_id'] = (int)$_POST['category_id'];
 
 $room_name = $_POST['place'];
 
 $room = db()->query("SELECT id FROM place where name = '$room_name'")->find();
+
 $room = $room['id'];
+
 $data['place_id'] = $room;
-
-
 
 
 
@@ -140,31 +147,7 @@ if (db()->query("INSERT INTO ticket (`subject`, `place_id`,`ticket_status`, `cre
 } else {
         echo "FAIL";
 }
+
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    
-            
-            
-
-
-
-        

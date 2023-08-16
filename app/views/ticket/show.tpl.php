@@ -301,6 +301,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
             <input name="cname_write" type="text" class="form-control border border-primary" placeholder="Введите имя заявителя">
         </div>
         <div class="modal-footer">
+              <input name="add_client" type="hidden" value="1">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
               <button type="submit" class="btn btn-success">Добавить</button>
         </div>
@@ -329,17 +330,20 @@ require_once VIEWS . '/includes/ticketsidebar.php';
 
       <?php foreach ($departaments as $dep) : ?>
           <div class="form-check">
-            <input name='departament' class="form-check-input" type="radio" value="<?= $dep['id']?>" id="flexCheckDefault">
+            <input name='departament' class="form-check-input border-primary" type="radio" value="<?= $dep['id']?>" id="flexCheckDefault">
             <label class="form-check-label" for="flexCheckDefault">
               <p><?= $dep['name']?></p>
             </label>
           </div>
         <?php endforeach; ?>
+        <hr>
+            <h5>Если нет в списке</h5>
 
             <input type="hidden" name="place_id" value="<?= $place ?>">
             <input name="dname_write" type="text" class="form-control border border-primary" placeholder="Введите название департамента">
       </div>
       <div class="modal-footer">
+            <input name="add_dep" type="hidden" value="1">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
             <button type="submit" class="btn btn-success">Добавить</button>
       </div>

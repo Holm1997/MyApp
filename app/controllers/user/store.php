@@ -4,10 +4,6 @@
 use myfrm\Validator;
 
 
-//$db = \myfrm\App::get('\myfrm\Db');
-
-
-    //dd($_POST);
 
 
     $fillable = ['login', 'password', 'last_name', 'first_name', 'phone'];

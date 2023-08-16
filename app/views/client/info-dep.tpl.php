@@ -27,16 +27,21 @@ require_once VIEWS . '/includes/clientsidebar.php';
     <p class="card-text">Кабинеты и помещения подразделения:</p>
     
     <div>
+    <?php if ($places) :?>
       <?php foreach ($places as $place) : ?>
       <a class="btn btn-outline-primary mx-2 my-2" href="client/place/show?id=<?=$place['id']?>" role="button"><?= $place['name'] ?></a>
       <?php endforeach;?>
+    <?php else : ?>
+        <h4 style="color: red;">Здесь пока нет кабинетов и помещений</h4>
+    <?php endif; ?>
     </div>
 
-
+  
 
 
   </div>
 </div>
+
 
 
 
