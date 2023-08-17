@@ -185,3 +185,110 @@ function place_departament($place_id) {
                 return '-----';
         }
 }
+
+function ticket_device($ticket_id) {
+        $category = db()->query("SELECT cat.id, cat.name FROM category cat
+                                INNER JOIN ticket t ON t.category_id = cat.id
+                                WHERE t.id = '$ticket_id'")->find();
+
+        $name = db()->query("SELECT d.name FROM device d
+                        INNER JOIN ticket_device td ON td.device_id = d.id
+                        INNER JOIN ticket t ON td.ticket_id = t.id
+                        WHERE t.id = '$ticket_id'")->find();
+        if ($name) {
+                return $category['name'] . ' ' . $name['name'];
+        } else {
+                return $category['name'];
+        }
+}
+
+function elapsed_time_for_info($ticket_id) {
+        $ticket = db()->query("SELECT id, creation_date, working_date, closing_date FROM ticket
+                WHERE id = '$ticket_id'")->find();
+        if ($ticket['closing_date']) {
+                $t_date = $ticket['closing_date'];
+                
+        } elseif ($ticket['working_date']) {
+                $t_date = $ticket['working_date'];
+        } else {
+                $t_date = $ticket['creation_date'];
+        } 
+
+        $year = db()->query("SELECT TIMESTAMPDIFF(YEAR, '$t_date', now()) as clock")->find();
+
+        $res = '';
+
+        if ($year['clock'] == 0) {
+                $month = db()->query("SELECT TIMESTAMPDIFF(MONTH, '$t_date', now()) as clock")->find();
+                if ($month['clock'] == 0) {
+                        $week = db()->query("SELECT TIMESTAMPDIFF(WEEK, '$t_date', now()) as clock")->find();
+                        if ($week['clock'] == 0) {
+                                $days = db()->query("SELECT TIMESTAMPDIFF(DAY, '$t_date', now()) as clock")->find();
+                                if ($days['clock'] == 0) {
+                                        $hours = db()->query("SELECT TIMESTAMPDIFF(HOUR, '$t_date', now()) as clock")->find();
+                                        if ($hours['clock'] == 0) {
+                                                $mins = db()->query("SELECT TIMESTAMPDIFF(MINUTE, '$t_date', now()) as clock")->find();
+                                                if ($mins['clock'] == 0) {
+                                                        $sec = db()->query("SELECT TIMESTAMPDIFF(SECOND, '$t_date', now()) as clock")->find();
+                                                        if ($sec['clock'] < 60) {
+                                                                $res .= $sec['clock'] . ' сек. назад';
+                                                        }
+                                                } elseif ($mins['clock'] < 60) {
+                                                        $res .= $mins['clock'] . ' мин. назад';
+                                                }
+                                        } elseif ($hours['clock'] < 25 ) {
+                                                $res .= $hours['clock'];
+                                                if ($hours['clock'] == 1 or $hours['clock'] == 21) {
+                                                        $res .= ' час назад';
+                                                } elseif ($hours['clock'] == 2 or $hours['clock'] == 3 or $hours['clock'] == 4
+                                                        or $hours['clock'] == 22 or $hours['clock'] == 23 or $hours['clock'] == 24) {
+                                                        $res .= ' часа назад';
+                                                } else  {
+                                                        $res .= ' часов назад';
+                                                }
+                                        }
+                                } elseif ($days['clock'] < 28) {
+                                        $res .= $days['clock'];
+                                        if ($days['clock'] == 1) {
+                                                $res .= ' день назад';
+                                        } elseif ($days['clock'] == 2 or $days['clock'] == 3 or $days['clock'] == 4) {
+                                                $res .= ' дня назад';
+                                        } else {
+                                                $res .= ' дней назад';
+                                        }
+                                }
+                        } elseif ($week['clock'] < 6) {
+                                $res .= $week['clock'];
+                                        if ($week['clock'] == 1) {
+                                                $res .= ' неделю назад';
+                                        } elseif ($week['clock'] == 2 or $week['clock'] == 3 or $week['clock'] == 4) {
+                                                $res .= ' недели назад';
+                                        } else {
+                                                $res .= ' недель назад';
+                                        }
+                        }
+                } elseif ($month['clock'] < 13) {
+                        $res .= $month['clock'] . ' месяцев назад';
+                }
+        } else {
+                $res .= $year['clock'];
+                if ($year['clock'] == 1) {
+                        $res .= ' год назад';
+                } elseif ($year['clock'] == 2 or $year['clock'] == 3 or $year['clock'] == 4) {
+                        $res .= ' года назад';
+                } else {
+                        $res .= ' лет назад';
+                }
+        }
+        return $res;
+        
+}
+
+function format_date_from_sql($date_and_time) {
+        $res = '';
+        $date_ticket = db()->query("SELECT DATE_FORMAT('$date_and_time', '%d %M %Y') as clock")->find();
+        $time_ticket = db()->query("SELECT TIME_FORMAT('$date_and_time',  '%k:%i') as clock")->find();
+        $res .= $time_ticket['clock'] . ' ' . $date_ticket['clock'];
+        return $res;
+
+}

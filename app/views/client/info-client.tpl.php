@@ -60,7 +60,7 @@ require_once VIEWS . '/includes/clientsidebar.php';
   <thead>
     <tr>
       <th scope="col">№ Заявки</th>
-      <th scope="col">Статус заявки</th>
+      <th scope="col">Время изменения</th>
       <th scope="col">Причина обращения</th>
       <th scope="col">Наименование оборудования</th>
       <th scope="col">Краткое описание проблемы и выполненных работ</th>
@@ -71,18 +71,40 @@ require_once VIEWS . '/includes/clientsidebar.php';
 
 <?php foreach ($tickets as $ticket) : ?>
   <?php if ($ticket['ticket_status'] == "Выполнена успешно") : ?>
-    <tr class="table-success">
-  <?php elseif ($ticket['ticket_status'] == "Не выполнена") : ?>
-    <tr class="table-danger">
-  <?php elseif ($ticket['ticket_status'] == "Новая заявка") : ?>
-    <tr class="table-warning">
-  <?php else : ?>
-    <tr>
-  <?php endif;?>
-      <th scope="row"><?= $ticket['id'] ?></th>
-      <td><?= $ticket['ticket_status'] ?></td>
+        <tr class="table-success">
+          <th scope="row"><i class="bi bi-check-lg me-2" style="color: green;"></i><?= $ticket['id'] ?></th>
+      <?php elseif ($ticket['ticket_status'] == "Не выполнена") : ?>
+        <tr class="table-danger">
+          <th scope="row"><i class="bi bi-x-lg me-2" style="color: red;"></i></i><?= $ticket['id'] ?></th>
+      <?php elseif ($ticket['ticket_status'] == "Новая заявка") : ?>
+        <tr class="table-warning">
+          <th scope="row">
+          <div class="spinner-grow spinner-grow-sm text-primary me-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <?= $ticket['id'] ?>
+          </th>
+      <?php elseif ($ticket['ticket_status'] == "Повторная заявка") :?>
+        <tr class="table-warning">
+          <th scope="row">
+          <div class="spinner-grow spinner-grow-sm text-primary me-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <?= $ticket['id'] ?>
+          </th>
+      <?php else : ?>
+        <tr>
+        <th scope="row">
+          <div class="spinner-border spinner-border-sm text-warning me-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <?= $ticket['id'] ?>
+          </th>
+      <?php endif;?>
+
+      <td><?= elapsed_time_for_info($ticket['id']) ?></td>
       <td><?= $ticket['subject'] ?></td>
-      <td><?= $ticket['catname'] ?></td>
+      <td><?= ticket_device($ticket['id']) ?></td>
       <td><?= $ticket['description'] ?></td>
       <td>
 

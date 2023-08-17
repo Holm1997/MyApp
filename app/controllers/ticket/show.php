@@ -241,7 +241,6 @@ if (!$ticket) {
 
 
 
-
 $title = "Заявка № {$ticket['id']}";
 
 require_once VIEWS . '/ticket/show.tpl.php';

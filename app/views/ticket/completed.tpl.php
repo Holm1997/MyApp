@@ -11,8 +11,7 @@ require VIEWS . '/includes/ticketsidebar.php';
     <thead>
         <tr class="table-secondary">
             <th scope="col">№ Заявки</th>
-            <th scope="col">Дата завершения</th>
-            <th scope="col">Статус заявки</th>
+            <th scope="col">Время завершения</th>
             <th scope="col">Кабинет | Подразделение</th>
             <th scope="col">Оборудование</th>
             <th scope="col">Причина обращения</th>
@@ -25,18 +24,14 @@ require VIEWS . '/includes/ticketsidebar.php';
     <?php foreach ($c_tickets as $ticket) : ?>
       <?php if ($ticket['ticket_status'] == "Выполнена успешно") : ?>
         <tr class="table-success">
-      <?php elseif ($ticket['ticket_status'] == "Не выполнена") : ?>
-        <tr class="table-danger">
-      <?php elseif ($ticket['ticket_status'] == "Новая заявка") : ?>
-        <tr class="table-warning">
+          <th scope="row"><i class="bi bi-check-lg" style="color: green;"></i><?= $ticket['id'] ?></th>     
       <?php else : ?>
-        <tr>
+        <tr class="table-danger">
+          <th scope="row"><i class="bi bi-x-lg" style="color: red;"></i><?= $ticket['id'] ?></th>
       <?php endif;?>
-            <th scope="row"><?= $ticket['id'] ?></th>
-            <td><?= $ticket['closing_date'] ?></td>
-            <td><?= $ticket['ticket_status'] ?></td>
+            <td><?= elapsed_time_for_info($ticket['id']) ?></td>
             <td><?= $ticket['name'].' | '.departament($ticket['pid'])?></td>
-            <td><?= $ticket['catname'] ?></td>
+            <td><?= ticket_device($ticket['id']) ?></td>
             <td><?= $ticket['subject'] ?></td>
             <td>
               <?php foreach ($users as $user) : ?>
@@ -58,7 +53,6 @@ require VIEWS . '/includes/ticketsidebar.php';
         <tr class="table-secondary">
             <th scope="col">№ Заявки</th>
             <th scope="col">Дата завершения</th>
-            <th scope="col">Статус заявки</th>
             <th scope="col">Кабинет | Подразделение</th>
             <th scope="col">Оборудование</th>
             <th scope="col">Причина обращения</th>
@@ -72,18 +66,14 @@ require VIEWS . '/includes/ticketsidebar.php';
     <?php foreach ($c_tickets as $ticket) : ?>
       <?php if ($ticket['ticket_status'] == "Выполнена успешно") : ?>
         <tr class="table-success">
-      <?php elseif ($ticket['ticket_status'] == "Не выполнена") : ?>
-        <tr class="table-danger">
-      <?php elseif ($ticket['ticket_status'] == "Новая заявка") : ?>
-        <tr class="table-warning">
+          <th scope="row"><i class="bi bi-check-lg" style="color: green;"></i><?= $ticket['id'] ?></th>     
       <?php else : ?>
-        <tr>
+        <tr class="table-danger">
+          <th scope="row"><i class="bi bi-x-lg" style="color: red;"></i><?= $ticket['id'] ?></th>
       <?php endif;?>
-            <th scope="row"><?= $ticket['id'] ?></th>
-            <td><?= $ticket['closing_date'] ?></td>
-            <td><?= $ticket['ticket_status'] ?></td>
+            <td><?= elapsed_time_for_info($ticket['id']) ?></td>
             <td><?= $ticket['name'].' | '.departament($ticket['pid'])?></td>
-            <td><?= $ticket['catname'] ?></td>
+            <td><?= ticket_device($ticket['id']) ?></td>
             <td><?= $ticket['subject'] ?></td>
       <?php foreach ($clients as $client) :?>
         <?php if ($client['id'] == $ticket['client_id']) :?>

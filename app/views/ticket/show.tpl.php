@@ -3,153 +3,231 @@ require_once VIEWS . '/includes/header.php';
 require_once VIEWS . '/includes/ticketsidebar.php';
 ?>
 
+<div class="container-fluid">
 
 
-<div class="container text-center">
-  <div class="row border-bottom border-black border-4 bg-primary-subtle text-black">
-    
-    <div class="col-3">
-      <p>Статус: </p>
-      <?php if ($ticket['ticket_status'] == 'Выполнена успешно') : ?>
-        <?php if ($ticket['previous']) : ?>
-          <h5><a href="/ticket/show?id=<?= $ticket['previous'] ?>" style="text-decoration: none;">
-          <font color="green"><?=$ticket['ticket_status'] . ' <= №'. $ticket['previous']?></font>
-        </a></h5>
-        <?php else : ?>
-          <h5><font color="green"><?=$ticket['ticket_status']?></font></h5>
-        <?php endif;?>
-      <?php elseif ($ticket['ticket_status'] == 'Не выполнена') : ?>
-        <?php if ($ticket['previous']) : ?>
-          <h5><a href="/ticket/show?id=<?= $ticket['previous'] ?>" style="text-decoration: none;">
-          <font color="red"><?=$ticket['ticket_status'] . ' <= №'. $ticket['previous']?></font>
-          </a></h5>
-        <?php else : ?>
-          <h5><font color="red"><?=$ticket['ticket_status']?></font></h5>
-        <?php endif;?>
-      <?php elseif ($ticket['ticket_status'] == 'В работе') : ?>
-        <?php if ($ticket['previous']) : ?>
-          <h5><a href="/ticket/show?id=<?= $ticket['previous'] ?>" style="text-decoration: none;">
-          <font color="orange"><?=$ticket['ticket_status'] . ' <= №'. $ticket['previous']?></font>
-          </a></h5>
-        <?php else : ?>
-          <h5><font color="orange"><?=$ticket['ticket_status']?></font></h5>
-        <?php endif;?>
-      <?php elseif ($ticket['ticket_status'] == 'Повторная заявка') : ?>
-        <h5><font color="blue">
-          <a href="/ticket/show?id=<?= $ticket['previous'] ?>" style="text-decoration: none;"><?=$ticket['ticket_status'] . ' <= №'. $ticket['previous']?></a>
-        </font></h5>
-      <?php else : ?>
-        <h5><font color="blue">
-          <?=$ticket['ticket_status'] ?>
-        </font></h5>
-      <?php endif;?>
-    </div>
+
+  <div class="row mt-2">
+    <div class="col-12 p-0">
+      <div class="card m-0 p-0 shadow bg-body mb-2 rounded">
+        <div class="card-body">
+
+          <div class="row align-items-center">
+
+            <div class ="col-4 d-flex align-items-center">
+
+              <?php if ($ticket['ticket_status'] == 'В работе') : ?>
   
+                <div class="spinner-border spinner-border text-warning me-3" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <h1 class="card-title"><?='Заявка № ' . $ticket['id'] ?></h1>
 
-    
-    <div class="col-6">
-      <h1><?='Заявка № ' . $ticket['id'] ?></h1>
+              <?php elseif (($ticket['ticket_status'] == 'Новая заявка')) : ?>
+                <div class="spinner-grow spinner-grow text-primary me-3" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <h1 class="card-title"><?='Заявка № ' . $ticket['id'] ?></h1>
+            
+              <?php elseif (($ticket['ticket_status'] == 'Повторная заявка')) : ?>
+                <div class="spinner-grow spinner-grow text-danger me-3" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <h1 class="card-title"><?='Заявка № ' . $ticket['id'] ?></h1>
+
+              <?php elseif ($ticket['ticket_status'] == 'Выполнена успешно') : ?>
+                <h1 class="card-title"><i class="bi bi-check-lg me-2" style="color: green;"></i><?='Заявка № ' . $ticket['id'] ?></h1>
+              <?php else : ?>
+                <h1 class="card-title"><i class="bi bi-x-lg me-2" style="color: red;"></i><?='Заявка № ' . $ticket['id'] ?></h1>
+              <?php endif; ?>
+
+            </div>
+              <div class="col-4 text-center">
+            <?php if ($ticket['previous']) : ?>
+              <h5>Повторная заявка с заявки
+                <a href="/ticket/show?id=<?= (int)$ticket['previous']?>" style="text-decoration: none;"><i class="bi bi-box-arrow-in-right me-2"></i><?=  $ticket['previous'] ?></a>
+              </h5>
+            <?php endif; ?>
+            </div>
+            <div class="col-4 text-end">
+              <?php if($_SESSION['user']['roleid'] == 1) : ?>
+
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete">
+                  Удалить
+                </button>
+
+              <?php endif; ?>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
-
-<?php if($_SESSION['user']['roleid'] == 1) : ?>
-
-    <div class="col-3">
-    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete">
-      Удалить
-    </button>
-
-    </div>
-<?php endif; ?>
   </div>
+
+  <div class="row mb-2">
+    <div class="col-3 p-0">
+      <div class="card m-0 p-0 shadow bg-body mb-2 rounded" style="height: 100%;">
+        <div class="card-body">
+          <div class="align-items-center">
+
+            <p>Кабинет/помещение:</p>
+            <h4><?=$ticket['name']?></h4>
+
+            <p>Подразделение:</p>
+              <?php if (!$departament) : ?>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDepartament">
+                <i class="bi bi-diagram-2-fill me-2"></i>Добавить подразделение
+                </button>
+              <?php else : ?>
+                <h4><?= $departament['name'] ?></h4>
+              <?php endif; ?>
+
+            <p>Заявитель: </p>
+              <?php if (!$ticket['client_id']) : ?>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addClient">
+                <i class="bi bi-person-plus-fill me-2"></i>Добавить заявителя
+                </button>
+              <?php else : ?>
+                <h4><?= $client_id['name']?></h4>
+              <?php endif; ?>
+
+            <p>Телефон: </p>
+              <h4><?= $ticket['phone'] ?><h4>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 p-0">
+      <div class="card m-0 p-0 shadow bg-body mb-2 rounded" style="height: 100%;">
+        <div class="card-body">
+          <div class="align-items-center">
+
+            <?php if ($device['name']) : ?>
+              <p>Наименование оборудования: </p>
+              <h3><?=$ticket['catname'] . ' ' . $device['name']?></h3>
+            <?php else : ?>
+              <p>Наименование оборудования: </p>
+              <h3><?=$ticket['catname']?></h3>
+            <?php endif; ?>
+
+            <p>Причина обращения: </p>
+              <h3><?=$ticket['subject']?></h3>
+            
+            <hr>
+
+            <?php if ($ticket['ticket_status'] == "Не выполнена" or $ticket['ticket_status'] == "Выполнена успешно") : ?>
+              <p>Краткое описание:</p>
+              <?php if ($ticket['ticket_status'] == "Выполнена успешно") : ?>
+                <h4 style="color: green;"><?= $ticket['description']?></h4>
+              <?php else : ?>
+                <h4 style="color: red;"><?= $ticket['description']?></h4>
+              <?php endif; ?>
+            <?php endif; ?>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3 p-0">
+      <div class="card m-0 p-0 shadow bg-body mb-2 rounded" style="height: 100%;">
+        <div class="card-body">
+          <div class="align-items-center">
+
+            <p>Назначенные сотрудники: </p>
+            <?php foreach ($users as $user) : ?>
+              <h5><?= $user['last_name'] .' ' . $user['first_name'] ?></h5>
+            <?php endforeach; ?>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-12 p-0">
+      <div class="card m-0 p-0 shadow bg-body mb-2 rounded" style="height: 100%;">
+        <div class="card-body">
+            <div class="row">
+            <div class="col-4">
+                <p>Дата и время создания заявки: </p>
+                <?php if ($ticket['ticket_status'] == 'Выполнена успешно') : ?>
+                  <h3 style="color: green;"><?=format_date_from_sql($ticket['creation_date'])?></h3>
+                <?php elseif ($ticket['ticket_status'] == 'Не выполнена' or $ticket['ticket_status'] == 'Повторная заявка') : ?>
+                  <h3 style="color: red;"><?=format_date_from_sql($ticket['creation_date'])?></h3>
+                <?php elseif ($ticket['ticket_status'] == 'Новая заявка') : ?>
+                  <h3 style="color: blue;"><?=format_date_from_sql($ticket['creation_date'])?></h3>
+                <?php else : ?>
+                  <h3 style="color: orange;"><?=format_date_from_sql($ticket['creation_date'])?></h3>
+                <?php endif;?>
+            </div>
+            <div class="col-4">
+                <p>Дата и время начала работ по заявке: </p>
+                <?php if ($ticket['ticket_status'] == 'Выполнена успешно') : ?>
+                  <h3 style="color: green;"><?= format_date_from_sql($ticket['working_date'])?></h3>
+                <?php elseif ($ticket['ticket_status'] == 'Не выполнена') : ?>
+                  <h3 style="color: red;"><?=format_date_from_sql($ticket['working_date'])?></h3>
+                <?php else : ?>
+                  <h3 style="color: orange;"><?=format_date_from_sql($ticket['working_date'])?></h3>
+                <?php endif;?>
+            </div> 
+            <div class="col-4">
+                <p>Дата и время закрытия заявки: </p>
+                <?php if ($ticket['ticket_status'] == 'Выполнена успешно') : ?>
+                  <h3 style="color: green;"><?=format_date_from_sql($ticket['closing_date'])?></h3>
+                <?php elseif ($ticket['ticket_status'] == 'Не выполнена') : ?>
+                  <h3 style="color: red;"><?=format_date_from_sql($ticket['closing_date'])?></h3>
+                <?php endif;?>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+  </div>
+
+
+
+
 </div>
 
 
 
 
-<div class="container text-left">
-  <div class="row">
-    <div class="col">
-      <p>Кабинет/помещение:</p>
-      <h4><?=$ticket['name']?></h4>
-      <p>Подразделение:</p>
-      <?php if (!$departament) : ?>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDepartament">
-            Добавить подразделение
-        </button>
-      <?php else : ?>
-        <h4><?= $departament['name'] ?></h4>
-      <?php endif; ?>
-
-      <p>Заявитель: </p>
-
-      <?php if (!$ticket['client_id']) : ?>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addClient">
-            Добавить заявителя
-        </button>
-      <?php else : ?>
-          <h4><?= $client_id['name']?></h4>
-      <?php endif; ?>
-
-    <p>Телефон: </p>
-    <h4><?= $ticket['phone'] ?><h4>
-    </div>
-    <div class="col-6 border-start border-end border-black border-2">
-  <?php if ($device['name']) : ?>
-    <p>Наименование оборудования: </p>
-    <h3><?=$ticket['catname'] . ' ' . $device['name']?></h3>
-  <?php else : ?>
-    <p>Наименование оборудования: </p>
-    <h3><?=$ticket['catname']?></h3>
-  <?php endif; ?>
-    <p>Причина обращения: </p>
-    <h3><?=$ticket['subject']?></h3>
-    <hr>
-  <?php if ($ticket['ticket_status'] == "Не выполнена" or $ticket['ticket_status'] == "Выполнена успешно") : ?>
-   <p>Краткое описание:</p>
-  <h4 style="color: orange;"><?= $ticket['description']?></h4>
-  <?php endif; ?>
-  </div>
-    <div class="col"> 
-    <p>Назначенные сотрудники: </p>
-  <?php foreach ($users as $user) : ?>
-    <h5><?= $user['last_name'] .' ' . $user['first_name'] ?></h5>
-  <?php endforeach; ?>
-    </div>
-  </div>
- 
-  <div class="row border-top border-bottom border-4 border-black bg-primary-subtle">
-    <div class="col">
-    <p>Дата и время создания заявки: </p>
-    <h3 style="color: red;"><?=$ticket['creation_date']?></h3>
-    </div>
-    <div class="col-6">
-    <p>Дата и время начала работ по заявке: </p>
-    <h3 style="color: red;"><?=$ticket['working_date']?></h3>
-    </div>
-    <div class="col">  
-    <p>Дата и время закрытия заявки: </p>
-    <h3 style="color: red;"><?=$ticket['closing_date']?></h3>
-    </div>
-  </div>
-</div>
 
 
 
 
 
-<div class="container text-center">
-  <div class="row">
+
+
+
+
+
+<div class="container-fluid">
 
 <form action="" method="post">
 
 <?php if ($ticket['ticket_status'] == 'Новая заявка' or $ticket['ticket_status'] == 'Повторная заявка') :?>
+  <div class="row mb-2 mb-3 text-center">
+    <div class="col">
 
 <input type="hidden" name="accept" value="ok">
 <button type="submit" class="btn btn-primary">Принять заявку</button>
-
+</div>
+</div>
 <?php elseif ($ticket['ticket_status'] == 'В работе') :?>
 
-<div class="row mt-3">
+  <div class="row mt-2 mb-3">
+    <div class="col-12 p-0">
+  <div class="card m-0 p-0 shadow bg-body mb-2 rounded" style="height: 100%;">
+        <div class="card-body">
+        <div class="row mt-3">
     <label for="device" class="col-sm-4 mb-0">Введите название модель оборудования (необязательно)</label>
     <div class="col-sm-5">
       <input name="device" type="text" class="form-control border border-primary" id="subject" placeholder="Введите...">
@@ -165,31 +243,44 @@ require_once VIEWS . '/includes/ticketsidebar.php';
     </div>
 </div>
 
+    </div>
+</div>  
+</div>
+</div>
 
 
+
+
+<div class="row mb-3 text-center">
+  <div class="col">
 <input name="place_id" type="hidden" value="<?= $ticket['pid'] ?>">
 <input name="cid" type="hidden" value="<?= $ticket['cid'] ?>">
 <input name="catid" type="hidden" value="<?= $ticket['catid'] ?>">
 <input name="close" value="Выполнена успешно" type="submit" class="btn btn-primary">
 <input name="close" value="Не выполнена" type="submit" class="btn btn-danger">
 
+</div>
+</div>
 <?php elseif ($ticket['ticket_status'] == 'Не выполнена') :?>
+  <div class="row mb-3 text-center">
+  <div class="col">
   <button type="button" class="btn btn-danger mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#repeat">
       Создать повторную заявку
   </button>
+  </div>
+</div>
 
 <?php endif; ?>
 
 </form>
 </div>
-</div>
+
+
 <table class="table">
     <thead>
         <tr class="table-secondary">
             <th scope="col">№ Заявки</th>
             <th scope="col">Дата закрытия заявки</th>
-            <th scope="col">Статус заявки</th>
-            <th scope="col">Помещение</th>
             <th scope="col">Наименование оборудование</th>
             <th scope="col">Краткое описание проблемы и выполненных работ</th>
             <th scope="col">Назначенные сотрудники</th>
@@ -201,29 +292,44 @@ require_once VIEWS . '/includes/ticketsidebar.php';
     <?php foreach ($tickets as $ticket) : ?>
       <?php if ($ticket['ticket_status'] == "Выполнена успешно") : ?>
         <tr class="table-success">
+          <th scope="row"><i class="bi bi-check-lg me-2" style="color: green;"></i><?= $ticket['id'] ?></th>
       <?php elseif ($ticket['ticket_status'] == "Не выполнена") : ?>
         <tr class="table-danger">
-      <?php elseif ($ticket['ticket_status'] == "Новая заявка" or $ticket['ticket_status'] == "Повторная заявка") : ?>
+          <th scope="row"><i class="bi bi-x-lg me-2" style="color: red;"></i></i><?= $ticket['id'] ?></th>
+      <?php elseif ($ticket['ticket_status'] == "Новая заявка") : ?>
         <tr class="table-warning">
+          <th scope="row">
+          <div class="spinner-grow spinner-grow-sm text-primary me-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <?= $ticket['id'] ?>
+          </th>
+      <?php elseif ($ticket['ticket_status'] == "Повторная заявка") :?>
+        <tr class="table-warning">
+          <th scope="row">
+          <div class="spinner-grow spinner-grow-sm text-primary me-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <?= $ticket['id'] ?>
+          </th>
       <?php else : ?>
         <tr>
+        <th scope="row">
+          <div class="spinner-border spinner-border-sm text-warning me-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <?= $ticket['id'] ?>
+          </th>
       <?php endif;?>
 
-            <th scope="row"><?= $ticket['id'] ?></th>
 
       <?php if ($ticket['closing_date']) : ?>
-            <td><?= $ticket['closing_date'] ?></td>
+            <td><?= format_date_from_sql($ticket['closing_date']) ?></td>
       <?php else : ?>
             <td>-----</td>
       <?php endif; ?>
 
-      <?php if ($ticket['ticket_status'] == 'В работе') : ?>
-            <td><font color="orange"><?= $ticket['ticket_status'] ?></font></td>
-      <?php else :?>
-            <td><?= $ticket['ticket_status'] ?></td>
-      <?php endif;?>
-            <td><?= $ticket['name'] ?></td>
-            <td><?= $ticket['catname'] ?></td>
+            <td><?= ticket_device($ticket['id']) ?></td>
 
       <?php if ($ticket['description']) : ?>
             <td><?= $ticket['description'] ?></td>
