@@ -1,5 +1,5 @@
 
-<ul class="nav nav-tabs border-black">
+<ul class="nav nav-tabs mb-2 shadow bg-body-rounded">
   <li class="nav-item border-bottom-0">
   <?php if ($_SERVER['REQUEST_URI'] == '/client') :?>
       <a class="nav-link active bg-secondary text-white" aria-current="page" href="client"><i class="bi bi-people-fill me-2"></i>Все заявители</a>

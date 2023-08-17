@@ -4,7 +4,7 @@
 
 if ($_SESSION['user']['roleid'] == 1){
 
-$tickets = db()->query("SELECT t.id, t.subject, t.ticket_status, t.creation_date, t.working_date, p.name, p.phone, cat.name as catname,p.id as pid, count(ticket_id) users 
+$tickets = db()->query("SELECT t.id, t.subject, t.ticket_status, t.creation_date, t.working_date, t.previous, p.name, p.phone, cat.name as catname,p.id as pid, count(ticket_id) users 
                         FROM ticket t inner join ticket_user tu ON tu.ticket_id = t.id
                         inner join place p on t.place_id = p.id
                         inner join category cat on t.category_id = cat.id               
@@ -17,7 +17,7 @@ $users= db()->query("select tu.ticket_id, u.last_name, u.first_name FROM ticket_
 } else {
     $user_id = $_SESSION['user']['id'];
 
-    $tickets = db()->query("SELECT t.id, t.subject, t.ticket_status, t.creation_date, t.working_date, p.name,p.id as pid, p.phone, t.client_id, cat.name as catname, count(ticket_id) users 
+    $tickets = db()->query("SELECT t.id, t.subject, t.ticket_status, t.creation_date, t.working_date,t.previous, p.name,p.id as pid, p.phone, t.client_id, cat.name as catname, count(ticket_id) users 
     FROM ticket t inner join ticket_user tu ON tu.ticket_id = t.id
     INNER JOIN place p ON t.place_id = p.id
     INNER JOIN category cat on t.category_id = cat.id            

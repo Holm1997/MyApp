@@ -1,6 +1,6 @@
 
-<ul class="nav nav-tabs border-black">
-  <li class="nav-item border-bottom-0">
+<ul class="nav nav-tabs mb-2 shadow bg-body-rounded">
+  <li class="nav-item">
     <?php if ($_SERVER['REQUEST_URI'] == '/ticket') :?>
       <a class="nav-link active bg-secondary text-white" aria-current="page" href="ticket"><i class="bi bi-reception-4 me-2"></i>Текущие</a>
     <?php else :?>

@@ -288,7 +288,7 @@ function format_date_from_sql($date_and_time) {
         $res = '';
         $date_ticket = db()->query("SELECT DATE_FORMAT('$date_and_time', '%d %M %Y') as clock")->find();
         $time_ticket = db()->query("SELECT TIME_FORMAT('$date_and_time',  '%k:%i') as clock")->find();
-        $res .= $time_ticket['clock'] . ' ' . $date_ticket['clock'];
+        $res .= $date_ticket['clock'] . ' ' . $time_ticket['clock'];
         return $res;
 
 }

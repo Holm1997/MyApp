@@ -1,5 +1,5 @@
 
-<ul class="nav nav-tabs border-black">
+<ul class="nav nav-tabs mb-2 shadow bg-body-rounded">
   <li class="nav-item border-bottom-0">
     <?php if ($_SERVER['REQUEST_URI'] == '/user') :?>
       <a class="nav-link active bg-secondary text-white" aria-current="page" href="user"><i class="bi bi-people-fill me-2"></i>Все сотрудники</a>

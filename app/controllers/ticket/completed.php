@@ -4,7 +4,7 @@
 
 if ($_SESSION['user']['roleid'] == 1) {
 
-    $c_tickets = db()->query("SELECT t.id, t.subject, t.ticket_status, t.closing_date, p.name, p.phone, p.id as pid, cat.name as catname, count(ticket_id) users 
+    $c_tickets = db()->query("SELECT t.id, t.subject, t.ticket_status, t.closing_date,t.previous, p.name, p.phone, p.id as pid, cat.name as catname, count(ticket_id) users 
     FROM ticket t inner join ticket_user tu ON tu.ticket_id = t.id
     inner join place p on t.place_id = p.id
     inner join category cat on t.category_id = cat.id               
@@ -18,7 +18,7 @@ if ($_SESSION['user']['roleid'] == 1) {
 
     $user_id = $_SESSION['user']['id'];
 
-    $c_tickets = db()->query("SELECT t.id, t.subject, t.ticket_status, t.closing_date, t.client_id, p.name, p.phone, p.id as pid, cat.name as catname, count(ticket_id) users
+    $c_tickets = db()->query("SELECT t.id, t.subject, t.ticket_status, t.closing_date, t.previous, t.client_id, p.name, p.phone, p.id as pid, cat.name as catname, count(ticket_id) users
     FROM ticket t inner join ticket_user tu ON tu.ticket_id = t.id
     inner join place p on t.place_id = p.id
     inner join category cat on t.category_id = cat.id

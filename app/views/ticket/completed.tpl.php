@@ -4,6 +4,8 @@ require VIEWS . '/includes/header.php';
 require VIEWS . '/includes/ticketsidebar.php';
 ?>
 
+
+<div class="table-responsive">
 <?php if ($c_tickets) : ?>
 <?php if ($_SESSION['user']['roleid'] == 1) : ?>
 
@@ -24,10 +26,24 @@ require VIEWS . '/includes/ticketsidebar.php';
     <?php foreach ($c_tickets as $ticket) : ?>
       <?php if ($ticket['ticket_status'] == "Выполнена успешно") : ?>
         <tr class="table-success">
-          <th scope="row"><i class="bi bi-check-lg" style="color: green;"></i><?= $ticket['id'] ?></th>     
+          <th scope="row"><i class="bi bi-check-lg" style="color: green;"></i>
+            <?php if ($ticket['previous']) : ?>
+              <?= $ticket['id'] ?>
+              <i class="bi bi-arrow-left"></i><?=' (' . $ticket['previous'] . ')'?>
+            <?php else : ?>
+              <?= $ticket['id']?>
+            <?php endif; ?>
+        </th>     
       <?php else : ?>
         <tr class="table-danger">
-          <th scope="row"><i class="bi bi-x-lg" style="color: red;"></i><?= $ticket['id'] ?></th>
+          <th scope="row"><i class="bi bi-x-lg" style="color: red;"></i>
+            <?php if ($ticket['previous']) : ?>
+              <?= $ticket['id'] ?>
+              <i class="bi bi-arrow-left"></i><?=' (' . $ticket['previous'] . ')'?>
+            <?php else : ?>
+              <?= $ticket['id']?>
+            <?php endif; ?>
+          </th>
       <?php endif;?>
             <td><?= elapsed_time_for_info($ticket['id']) ?></td>
             <td><?= $ticket['name'].' | '.departament($ticket['pid'])?></td>
@@ -40,7 +56,7 @@ require VIEWS . '/includes/ticketsidebar.php';
                 <?php endif;?>
               <?php endforeach; ?>
             </td>
-            <td><a href="/ticket/show?id=<?= $ticket['id']?>" >Detail</a></td>
+            <td><a href="/ticket/show?id=<?= $ticket['id']?>" ><i class="bi bi-box-arrow-in-up-right"></i></a></td>
     <?php endforeach; ?>
     
   </tbody>
@@ -66,10 +82,24 @@ require VIEWS . '/includes/ticketsidebar.php';
     <?php foreach ($c_tickets as $ticket) : ?>
       <?php if ($ticket['ticket_status'] == "Выполнена успешно") : ?>
         <tr class="table-success">
-          <th scope="row"><i class="bi bi-check-lg" style="color: green;"></i><?= $ticket['id'] ?></th>     
+          <th scope="row"><i class="bi bi-check-lg" style="color: green;"></i>
+            <?php if ($ticket['previous']) : ?>
+              <?= $ticket['id'] ?>
+              <i class="bi bi-arrow-left"></i><?=' (' . $ticket['previous'] . ')'?>
+            <?php else : ?>
+              <?= $ticket['id']?>
+            <?php endif; ?>
+          </th>     
       <?php else : ?>
         <tr class="table-danger">
-          <th scope="row"><i class="bi bi-x-lg" style="color: red;"></i><?= $ticket['id'] ?></th>
+          <th scope="row"><i class="bi bi-x-lg" style="color: red;"></i>
+            <?php if ($ticket['previous']) : ?>
+              <?= $ticket['id'] ?>
+              <i class="bi bi-arrow-left"></i><?=' (' . $ticket['previous'] . ')'?>
+            <?php else : ?>
+              <?= $ticket['id']?>
+            <?php endif; ?>
+          </th>
       <?php endif;?>
             <td><?= elapsed_time_for_info($ticket['id']) ?></td>
             <td><?= $ticket['name'].' | '.departament($ticket['pid'])?></td>
@@ -86,13 +116,14 @@ require VIEWS . '/includes/ticketsidebar.php';
     <?php else :?>
             <td><?= $ticket['dphone'] ?></td>
     <?php endif; ?>
-            <td><a href="/ticket/show?id=<?= $ticket['id']?>" >Detail</a></td>
+            <td><a href="/ticket/show?id=<?= $ticket['id']?>" ><i class="bi bi-box-arrow-in-up-right"></i></a></td>
     </tr>
     <?php endforeach; ?>
     
   </tbody>
 </table>
 <?php endif; ?>
+</div>
 <?php else : ?>
     <h1>Нет выполненных заявок</h1>
 <?php endif; ?>

@@ -8,6 +8,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
 
 
 ?>
+<div class="table-responsive">
 <?php if ($tickets) : ?>
 <?php if ($_SESSION['user']['roleid'] == 1) : ?>
 <table class="table">
@@ -26,12 +27,17 @@ require_once VIEWS . '/includes/ticketsidebar.php';
   <tbody class="table-group-divider">
     <?php foreach ($tickets as $ticket) : ?>
       <?php if ($ticket['ticket_status'] == "Новая заявка") : ?>
-        <tr class="table-warning">
+        <tr class="table-warning table-responsive">
           <th scope="row">
             <div class="spinner-grow spinner-grow-sm text-primary" role="status">
                   <span class="visually-hidden">Loading...</span>
             </div>
-            <?= $ticket['id'] ?>
+            <?php if ($ticket['previous']) : ?>
+              <?= $ticket['id'] ?>
+              <i class="bi bi-arrow-left"></i><?=' (' . $ticket['previous'] . ')'?>
+            <?php else : ?>
+              <?= $ticket['id']?>
+            <?php endif; ?>
           </th>
       <?php elseif ($ticket['ticket_status'] == "Повторная заявка") : ?>
         <tr class="table-danger">
@@ -39,7 +45,12 @@ require_once VIEWS . '/includes/ticketsidebar.php';
             <div class="spinner-grow spinner-grow-sm text-danger" role="status">
                   <span class="visually-hidden">Loading...</span>
             </div>
-            <?= $ticket['id'] ?>
+            <?php if ($ticket['previous']) : ?>
+              <?= $ticket['id'] ?>
+              <i class="bi bi-arrow-left"></i><?=' (' . $ticket['previous'] . ')'?>
+            <?php else : ?>
+              <?= $ticket['id']?>
+            <?php endif; ?>
             </th>
       <?php else : ?>
         <tr>
@@ -47,7 +58,12 @@ require_once VIEWS . '/includes/ticketsidebar.php';
             <div class="spinner-border spinner-border-sm text-warning" role="status">
                   <span class="visually-hidden">Loading...</span>
             </div>
-            <?= $ticket['id'] ?>
+            <?php if ($ticket['previous']) : ?>
+              <?= $ticket['id'] ?>
+              <i class="bi bi-arrow-left"></i><?=' (' . $ticket['previous'] . ')'?>
+            <?php else : ?>
+              <?= $ticket['id']?>
+            <?php endif; ?>
           </th>
       <?php endif;?>
             <td><?= elapsed_time_for_info($ticket['id']) ?></td>      
@@ -61,7 +77,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
                 <?php endif;?>
               <?php endforeach; ?>
             </td>
-            <td><a href="/ticket/show?id=<?= $ticket['id']?>" >Detail</a></td>
+            <td><a href="/ticket/show?id=<?= $ticket['id']?>" ><i class="bi bi-box-arrow-in-up-right"></i></a></td>
     <?php endforeach; ?>
     
   </tbody>
@@ -91,7 +107,12 @@ require_once VIEWS . '/includes/ticketsidebar.php';
             <div class="spinner-grow spinner-grow-sm text-primary" role="status">
                   <span class="visually-hidden">Loading...</span>
             </div>
-            <?= $ticket['id'] ?>
+            <?php if ($ticket['previous']) : ?>
+              <?= $ticket['id'] ?>
+              <i class="bi bi-arrow-left"></i><?=' (' . $ticket['previous'] . ')'?>
+            <?php else : ?>
+              <?= $ticket['id']?>
+            <?php endif; ?>
           </th>
       <?php elseif ($ticket['ticket_status'] == "Повторная заявка") : ?>
         <tr class="table-danger">
@@ -99,7 +120,12 @@ require_once VIEWS . '/includes/ticketsidebar.php';
             <div class="spinner-grow spinner-grow-sm text-danger" role="status">
                   <span class="visually-hidden">Loading...</span>
             </div>
-            <?= $ticket['id'] ?>
+            <?php if ($ticket['previous']) : ?>
+              <?= $ticket['id'] ?>
+              <i class="bi bi-arrow-left"></i><?=' (' . $ticket['previous'] . ')'?>
+            <?php else : ?>
+              <?= $ticket['id']?>
+            <?php endif; ?>
             </th>
       <?php else : ?>
         <tr>
@@ -107,7 +133,12 @@ require_once VIEWS . '/includes/ticketsidebar.php';
             <div class="spinner-border spinner-border-sm text-warning" role="status">
                   <span class="visually-hidden">Loading...</span>
             </div>
-            <?= $ticket['id'] ?>
+            <?php if ($ticket['previous']) : ?>
+              <?= $ticket['id'] ?>
+              <i class="bi bi-arrow-left"></i><?=' (' . $ticket['previous'] . ')'?>
+            <?php else : ?>
+              <?= $ticket['id']?>
+            <?php endif; ?>
           </th>
       <?php endif;?>
 
@@ -129,13 +160,15 @@ require_once VIEWS . '/includes/ticketsidebar.php';
             <td><?= $ticket['phone'] ?></td>
     
 
-            <td><a href="/ticket/show?id=<?= $ticket['id']?>" >Detail</a></td>
+            <td><a href="/ticket/show?id=<?= $ticket['id']?>" ><i class="bi bi-box-arrow-in-up-right"></i></a></td>
       </tr>
     <?php endforeach; ?>
     
   </tbody>
 </table>
+
 <?php endif; ?>
+</div>
 <?php else : ?>
 <h1>Нет активных заявок</h1>
 <?php endif; ?>

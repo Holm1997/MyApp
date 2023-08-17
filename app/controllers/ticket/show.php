@@ -206,7 +206,7 @@ $users = db()->query("SELECT u.id, u.last_name, u.first_name FROM user u INNER J
 
 $td = db()->query("SELECT device_id FROM ticket_device WHERE ticket_id = '$id'")->find();
 
-$tickets = db()->query("SELECT t.id, t.subject, t.ticket_status, t.description,
+$tickets = db()->query("SELECT t.id, t.subject, t.ticket_status, t.previous, t.description,
 t.closing_date, t.working_date, t.creation_date, t.client_id, t.place_id,
 cat.name as catname, p.id as pid, p.name, p.phone
 FROM ticket t INNER JOIN category cat ON t.category_id = cat.id 
