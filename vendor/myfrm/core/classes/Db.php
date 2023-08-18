@@ -103,4 +103,11 @@ final class Db
 
     }
 
+    public function getColumn()
+    {
+
+        return $this->stmt->fetchColumn();
+
+    }
+
 }

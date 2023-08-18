@@ -7,14 +7,15 @@ require_once VIEWS . '/includes/clientsidebar.php';
 <div class="card mt-3 shadow p-3 mb-5 bg-body-tertiary rounded">
   <div class="card-header bg-white">
     <div class="row bg-white">
+    <?php if ($client['phone']) : ?>
       <div class="col-3">
-        
         <h1><?=$client['name']?></h1>
-        <?php if ($client['phone']) : ?>
-    <p><?='Телефон: ' . $client['phone']?></p>
-<?php else : ?>
-    <p>Телефон: --- </p>
-<?php endif; ?>
+        <p><?='Телефон: ' . $client['phone']?></p>
+    <?php else : ?>
+      <div class="col-3 d-flex">
+        <h1><?=$client['name']?></h1>
+        <h2><button type="button" class="btn btn-outline-success ms-2" data-bs-toggle="modal" data-bs-target="#add_phone"><i class="bi bi-telephone-plus-fill"></i></button></h2>
+    <?php endif; ?>
         
       </div>
       <div class="col-4 text-center">
@@ -126,9 +127,9 @@ require_once VIEWS . '/includes/clientsidebar.php';
 
 
 
-<!-- Modal -->
+<!-- Modal DELETE -->
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -145,6 +146,32 @@ require_once VIEWS . '/includes/clientsidebar.php';
         <input type="hidden" name="_method" value="delete">
         <input type="hidden" name="id" value="<?= $client['id']?>">
         <button type="submit" class="btn btn-danger">Да</button>
+    </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal ADD PHONE-->
+
+<div class="modal fade" id="add_phone" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Добавить телефон</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group ">
+          <input type="tel" pattern="8-[0-9]{3}-[0-9]{3}-[0-9]{3}" class="form-control border-primary" placeholder="8-9XX-XXXX-XXX" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+
+    <form action="/client" method="post">
+        <input type="hidden" name="id" value="<?= $client['id']?>">
+        <button type="submit" class="btn btn-success">Добавить</button>
     </form>
       </div>
     </div>

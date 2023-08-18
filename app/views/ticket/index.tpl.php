@@ -8,6 +8,8 @@ require_once VIEWS . '/includes/ticketsidebar.php';
 
 
 ?>
+
+
 <div class="table-responsive">
 <?php if ($tickets) : ?>
 <?php if ($_SESSION['user']['roleid'] == 1) : ?>
@@ -172,6 +174,14 @@ require_once VIEWS . '/includes/ticketsidebar.php';
 <?php else : ?>
 <h1>Нет активных заявок</h1>
 <?php endif; ?>
+
+<div class="row">
+  <div class="col align-items-center">
+<?= $pagination ?>
+</div>
+</div>
+
+
 
 <?php
 

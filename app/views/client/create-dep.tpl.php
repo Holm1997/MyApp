@@ -7,16 +7,28 @@ require_once VIEWS . '/includes/clientsidebar.php';
 ?>
 <?php get_alerts(); ?>
 
+
 <form action="" method="post">
-<div class="mb-3">
-  <label for="abbr" class="form-label">Название подразделения (аббревиатура) </label>
-  <input name="name"type="text" class="form-control" id="abbr" placeholder="Введите...">
+
+<div class="row mt-3 mb-3">
+<label for="abbr" class="col-sm-3 col-form-label"><h5>Название подразделения (аббревиатура) </h5></label>
+<div class="col-sm-5">
+<input name="name" type="text" class="form-control border-primary" id="abbr" placeholder="Введите...">
 </div>
+</div>
+
+
+
 
 <?= isset($validation) ? $validation->listErrors('name') : '' ?>
 
 
-<button type="submit" class="btn btn-primary">Добавить</button>
+
+<div class="row text-center">
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Добавить</button>
+  </div>
+</div>
 
 
 </form>

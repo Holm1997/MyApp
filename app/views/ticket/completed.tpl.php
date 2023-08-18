@@ -127,5 +127,12 @@ require VIEWS . '/includes/ticketsidebar.php';
 <?php else : ?>
     <h1>Нет выполненных заявок</h1>
 <?php endif; ?>
+
+<div class="row">
+  <div class="col align-items-center">
+<?= $pagination ?>
+</div>
+</div>
+
 <?php
 require VIEWS . '/includes/footer.php';

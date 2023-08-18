@@ -353,7 +353,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
 
 
       <?php if ($ticket['closing_date']) : ?>
-            <td><?= format_date_from_sql($ticket['closing_date']) ?></td>
+            <td><?= elapsed_time_for_info($ticket['id']) ?></td>
       <?php else : ?>
             <td>-----</td>
       <?php endif; ?>

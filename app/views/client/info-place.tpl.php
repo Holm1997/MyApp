@@ -2,6 +2,8 @@
 require_once VIEWS . '/includes/header.php';
 require_once VIEWS . '/includes/clientsidebar.php';
 ?>
+
+
 <div class="card mt-3 shadow p-3 mb-5 bg-body-tertiary rounded">
   <div class="card-header">
     <div class="row">
@@ -46,7 +48,119 @@ require_once VIEWS . '/includes/clientsidebar.php';
   </div>
 </div>
 
+<div class="table-responsive">
+<table class="table">
+    <thead>
+        <tr class="table-secondary">
+            <th scope="col">№ Заявки</th>
+            <th scope="col">Дата закрытия заявки</th>
+            <th scope="col">Заявитель</th>
+            <th scope="col">Наименование оборудование</th>
+            <th scope="col">Краткое описание проблемы и выполненных работ</th>
+            <th scope="col">Назначенные сотрудники</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
 
+  <tbody class="table-group-divider">
+    <?php foreach ($tickets as $ticket) : ?>
+      <?php if ($ticket['ticket_status'] == "Выполнена успешно") : ?>
+        <tr class="table-success">
+          <th scope="row"><i class="bi bi-check-lg me-2" style="color: green;"></i>
+            <?php if ($ticket['previous']) : ?>
+              <?= $ticket['id'] ?>
+              <i class="bi bi-arrow-left"></i><?=' (' . $ticket['previous'] . ')'?>
+            <?php else : ?>
+              <?= $ticket['id']?>
+            <?php endif; ?>
+          </th>
+      <?php elseif ($ticket['ticket_status'] == "Не выполнена") : ?>
+        <tr class="table-danger">
+          <th scope="row"><i class="bi bi-x-lg me-2" style="color: red;"></i>
+            <?php if ($ticket['previous']) : ?>
+              <?= $ticket['id'] ?>
+              <i class="bi bi-arrow-left"></i><?=' (' . $ticket['previous'] . ')'?>
+            <?php else : ?>
+              <?= $ticket['id']?>
+            <?php endif; ?>
+          </th>
+      <?php elseif ($ticket['ticket_status'] == "Новая заявка") : ?>
+        <tr class="table-warning">
+          <th scope="row">
+          <div class="spinner-grow spinner-grow-sm text-primary me-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+            <?php if ($ticket['previous']) : ?>
+              <?= $ticket['id'] ?>
+              <i class="bi bi-arrow-left"></i><?=' (' . $ticket['previous'] . ')'?>
+            <?php else : ?>
+              <?= $ticket['id']?>
+            <?php endif; ?>
+          </th>
+      <?php elseif ($ticket['ticket_status'] == "Повторная заявка") :?>
+        <tr class="table-warning">
+          <th scope="row">
+          <div class="spinner-grow spinner-grow-sm text-primary me-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+            <?php if ($ticket['previous']) : ?>
+              <?= $ticket['id'] ?>
+              <i class="bi bi-arrow-left"></i><?=' (' . $ticket['previous'] . ')'?>
+            <?php else : ?>
+              <?= $ticket['id']?>
+            <?php endif; ?>
+          </th>
+      <?php else : ?>
+        <tr>
+        <th scope="row">
+          <div class="spinner-border spinner-border-sm text-warning me-1" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+            <?php if ($ticket['previous']) : ?>
+              <?= $ticket['id'] ?>
+              <i class="bi bi-arrow-left"></i><?=' (' . $ticket['previous'] . ')'?>
+            <?php else : ?>
+              <?= $ticket['id']?>
+            <?php endif; ?>
+          </th>
+      <?php endif;?>
+
+
+      <?php if ($ticket['closing_date']) : ?>
+            <td><?= format_date_from_sql($ticket['closing_date']) ?></td>
+      <?php else : ?>
+            <td>-----</td>
+      <?php endif; ?>
+
+      <?php foreach ($clients as $client) :?>
+        <?php if ($client['id'] == $ticket['client_id']) : ?>
+            <td><?= $client['name']?></td>
+        <?php else : ?>
+            <td>-----</td>
+        <?php endif; ?>
+      <?php endforeach;?>
+            <td><?= ticket_device($ticket['id']) ?></td>
+
+      <?php if ($ticket['description']) : ?>
+            <td><?= $ticket['description'] ?></td>
+      <?php else : ?>
+            <td>-----</td>
+      <?php endif; ?>
+
+            <td>
+            <?php foreach ($ticket_user as $user) : ?>
+              <?php if ($user['tid'] == $ticket['id']) : ?>
+              <?= $user['last_name'] . ' ' . $user['first_name']?></br>
+              <?php endif;?>
+            <?php endforeach; ?>
+            </td>
+            <td><a href="/ticket/show?id=<?= $ticket['id']?>" ><i class="bi bi-box-arrow-in-up-right"></i></a></td>
+    </tr>
+  <?php endforeach; ?>
+  </tbody>
+
+</table>
+</div>
 
 
 
