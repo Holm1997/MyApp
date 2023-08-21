@@ -4,7 +4,7 @@ require VIEWS . '/includes/header.php';
 require VIEWS . '/includes/clientsidebar.php';
 ?>
 
-
+<div class="table-responsive">
 <table class="table">
     <thead>
         <tr class="table-secondary">
@@ -31,7 +31,7 @@ require VIEWS . '/includes/clientsidebar.php';
   </tbody>
 </table>
 
-
+</div>
 
 
 <?php

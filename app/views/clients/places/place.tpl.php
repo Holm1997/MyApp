@@ -6,7 +6,7 @@ require_once VIEWS . "/includes/clientsidebar.php";
 
 
 
-
+<div class="table-responsive">
 <table class="table">
     <thead>
         <tr class="table-secondary">
@@ -36,7 +36,7 @@ require_once VIEWS . "/includes/clientsidebar.php";
   </tbody>
 </table>
 
-
+</div>
 
 
 

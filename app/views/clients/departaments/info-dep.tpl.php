@@ -6,18 +6,18 @@ require_once VIEWS . '/includes/clientsidebar.php';
 
 <div class="card mt-3 shadow p-3 mb-5 bg-body-tertiary rounded">
   <div class="card-header">
-    <div class="row">
-      <div class="col-10 d-flex">
+    <div class="row justify-content-around">
+      <div class="col-auto d-flex me-auto">
         <p class="mt-2">Подразделение</p>
         <h3 class="ms-3"><?=$dep['name']?></h3>
         
       </div>
-      <div class="col-2 d-flex">
+      <div class="col-auto d-flex">
             <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#add">Добавить кабинет</button>
       
       <?php if($_SESSION['user']['roleid'] == 1) : ?>
 
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete">Удалить</button>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash3-fill"></i></button>
       <?php endif; ?>
       </div>
     </div>

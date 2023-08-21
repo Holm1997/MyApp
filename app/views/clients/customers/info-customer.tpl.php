@@ -8,24 +8,24 @@ require_once VIEWS . '/includes/clientsidebar.php';
   <div class="card-header bg-white">
     <div class="row bg-white">
     <?php if ($client['phone']) : ?>
-      <div class="col-3">
+      <div class="col-4">
         <h1><?=$client['name']?></h1>
         <p><?='Телефон: ' . $client['phone']?></p>
     <?php else : ?>
-      <div class="col-3 d-flex">
+      <div class="col-4">
         <h1><?=$client['name']?></h1>
-        <h2><button type="button" class="btn btn-outline-success ms-2" data-bs-toggle="modal" data-bs-target="#add_phone"><i class="bi bi-telephone-plus-fill"></i></button></h2>
+        <button type="button" class="btn btn-outline-success m-0" data-bs-toggle="modal" data-bs-target="#add_phone"><i class="bi bi-telephone-plus-fill"></i></button>
     <?php endif; ?>
         
       </div>
-      <div class="col-4 text-center">
+      <div class="col-3 text-center">
         <?php if ($departament['name']) : ?>
           <h3><?= $departament['name'] ?></h3>
         <?php else : ?>
           <h3>---</h3>
         <?php endif; ?>
       </div>
-      <div class="col-4">
+      <div class="col-3">
         <h3><?= $place['name'] ?></h3>
         <p><?='Телефон: ' . $place['phone']?></p>
     </div>
@@ -33,7 +33,7 @@ require_once VIEWS . '/includes/clientsidebar.php';
       
       <?php if($_SESSION['user']['roleid'] == 1) : ?>
 
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete">Удалить</button>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash3-fill"></i></button>
       <?php endif; ?>
       </div>
     </div>
@@ -54,7 +54,7 @@ require_once VIEWS . '/includes/clientsidebar.php';
 
 
 
-
+<div class="table-responsive">
 
 <table class="table">
 
@@ -123,7 +123,7 @@ require_once VIEWS . '/includes/clientsidebar.php';
   </tbody>
 
 </table>
-
+</div>
 
 
 

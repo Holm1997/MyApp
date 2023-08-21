@@ -11,7 +11,7 @@ require_once VIEWS . '/includes/clientsidebar.php';
 
 
 <?php if ($clients) : ?>
-
+<div class="table-responsive">
 <table class="table">
     <thead>
         <tr class='table-secondary'>
@@ -42,7 +42,7 @@ require_once VIEWS . '/includes/clientsidebar.php';
     
   </tbody>
 </table>
-
+</div>
 <?php else :  ?>
 <h1>Нет заявителей в базе данных<h2>
 <?php endif;?>
