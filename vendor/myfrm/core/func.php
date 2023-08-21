@@ -290,3 +290,16 @@ function elapsed_time_for_info($ticket_id) {
         return $res;
         
 }
+
+
+function sort_link_th($title, $a, $b) {
+	$sort = $_GET['sort'];
+ 
+	if ($sort == $a) {
+		return '<a class="active" style="color: red;" href="/tickets/completed?sort=' . $b . '">' . $title . ' <i>↑</i></a>';
+	} elseif ($sort == $b) {
+		return '<a class="active" style="color: red;" href="/tickets/completed?sort=' . $a . '">' . $title . ' <i>↓</i></a>';  
+	} else {
+		return '<a href="/tickets/completed?sort=' . $a . '">' . $title . '</a>';  
+	}
+}

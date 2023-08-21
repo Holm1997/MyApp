@@ -20,8 +20,8 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <?php if (explode("/", $_SERVER['REQUEST_URI'])[1] == 'ticket' or explode("?", $_SERVER['REQUEST_URI'])[0] == '/ticket') : ?>
-            <a class="nav-link active position-relative" aria-current="page" href="/ticket">Заявки
+          <?php if (explode("/", $_SERVER['REQUEST_URI'])[1] == 'tickets' or explode("?", $_SERVER['REQUEST_URI'])[0] == '/tickets') : ?>
+            <a class="nav-link active position-relative" aria-current="page" href="/tickets">Заявки
             <?php if (numbers_of_new_tickets($_SESSION['user']['id']) != 0) :?>
               <span class="position-absolute top-25 start-75 translate-middle badge rounded-pill bg-danger">
                 <?= numbers_of_new_tickets($_SESSION['user']['id']) ?>
@@ -30,7 +30,7 @@
             <?php endif; ?>
             </a>
           <?php else : ?>
-            <a class="nav-link" href="/ticket">Заявки
+            <a class="nav-link" href="/tickets">Заявки
             <?php if (numbers_of_new_tickets($_SESSION['user']['id']) != 0) :?>
               <span class="position-absolute top-25 start-75 translate-middle badge rounded-pill bg-danger">
                 <?= numbers_of_new_tickets($_SESSION['user']['id']) ?>
@@ -46,18 +46,18 @@
 
         
         <li class="nav-item">
-        <?php if (explode("/", $_SERVER['REQUEST_URI'])[1] == 'client') :?>
-          <a class="nav-link active" aria-current="page" href="/client">Клиенты</a>
+        <?php if (explode("/", $_SERVER['REQUEST_URI'])[1] == 'clients') :?>
+          <a class="nav-link active" aria-current="page" href="/clients/customers">Клиенты</a>
         <?php else : ?>
-          <a class="nav-link" href="client">Клиенты</a>
+          <a class="nav-link" href="/clients/customers">Клиенты</a>
         <?php endif; ?>
         </li>
 
         <li class="nav-item">
-        <?php if (explode("/", $_SERVER['REQUEST_URI'])[1] == 'user'):?>
-          <a class="nav-link active" href="/user">Сотрудники</a>
+        <?php if (explode("/", $_SERVER['REQUEST_URI'])[1] == 'users'):?>
+          <a class="nav-link active" href="/users">Сотрудники</a>
         <?php else : ?>
-          <a class="nav-link" href="user">Сотрудники</a>
+          <a class="nav-link" href="/users">Сотрудники</a>
         <?php endif; ?>
         </li>
         
@@ -70,7 +70,7 @@
           <?= $_SESSION['user']['lname'] .' '.$_SESSION['user']['fname']?>
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/user/show?id=<?= $_SESSION['user']['id']?>">Статистика</a></li>
+            <li><a class="dropdown-item" href="/users/show?id=<?= $_SESSION['user']['id']?>">Статистика</a></li>
             <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Сменить пароль</a></li>
           </ul>
         </li>
@@ -93,7 +93,7 @@
         <h1 class="modal-title fs-5" id="staticBackdropLabel">Смена пароля</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="/user/change-password" method="post">
+      <form action="/users/change-password" method="post">
       <div class="modal-body">
         <label for="inputOldPassword" class="form-label">Введите старый пароль</label>
         <input name="oldpassword" type="password" id="inputOldPassword" class="form-control" aria-describedby="passwordHelpBlock">
