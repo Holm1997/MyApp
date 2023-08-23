@@ -13,7 +13,6 @@ if ($user_data) {
 
     if (password_verify($data2['password'], $user_data['password'])) {
 
-
         $_SESSION['user']['id'] = $user_data['id'];
         $_SESSION['user']['roleid'] = $user_data['roleid'];
         $_SESSION['user']['role'] = $user_data['role'];
@@ -21,9 +20,6 @@ if ($user_data) {
         $_SESSION['user']['lname'] = $user_data['last_name'];
 
         redirect('/');
-    }else {
-        $_SESSION['error'] = 'Неверный логин или пароль';
-        redirect('/login');
     }
 } else {
     $_SESSION['error'] = 'Неверный логин или пароль';
