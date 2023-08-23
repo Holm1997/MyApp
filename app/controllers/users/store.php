@@ -50,7 +50,6 @@ use myfrm\Validator;
     if (!$validation->hasErrors()) {
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
-        dd($data['password']);
 
         if (db()->query("insert into user (`user_roles_id`,`login`, `password`, `last_name`, `first_name`, `phone`) 
         values (2, :login, :password, :last_name, :first_name, :phone)", $data)) {

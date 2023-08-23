@@ -214,9 +214,10 @@ require_once VIEWS . '/includes/ticketsidebar.php';
 
 <form action="" method="post">
 
-
-<?php if ($ticket['ticket_status'] == 'Новая заявка' or $ticket['ticket_status'] == 'Повторная заявка') :?>
 <?php if ($access) :?>
+<?php if ($ticket['ticket_status'] == 'Новая заявка' or $ticket['ticket_status'] == 'Повторная заявка') :?>
+
+
   <div class="row mb-2 mb-3 text-center">
     <div class="col">
 
@@ -265,8 +266,10 @@ require_once VIEWS . '/includes/ticketsidebar.php';
 </div>
 </div>
 <?php endif;?>
-<?php elseif ($ticket['ticket_status'] == 'Не выполнена') :?>
-  <div class="row mb-3 text-center">
+<?php endif;?>
+
+<?php if ($ticket['ticket_status'] == 'Не выполнена') :?>
+<div class="row mb-3 text-center">
   <div class="col">
   <button type="button" class="btn btn-danger mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#repeat">
       Создать повторную заявку
@@ -274,7 +277,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
   </div>
 </div>
 
-<?php endif; ?>
+<?php endif;?>
 
 </form>
 </div>

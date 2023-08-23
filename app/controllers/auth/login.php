@@ -1,22 +1,32 @@
 <?php
 
-$fillable = ['login', 'password'];
+$fillable1 = ['login'];
+$fillable2 = ['password'];
+$data1 = load($fillable1);
+$data2 = load($fillable2);
 
-$data = load($fillable);
-
-$user_data = db()->query("SELECT u.id, u.first_name, u.last_name, u.phone, ur.id as roleid, ur.role
+$user_data = db()->query("SELECT u.id,u.password, u.first_name, u.last_name, u.phone, ur.id as roleid, ur.role
  from user u inner join user_roles ur 
- on u.user_roles_id = ur.id where u.login = :login and u.password = :password", $data)->find();
+ on u.user_roles_id = ur.id where u.login = :login", $data1)->find();
 
 if ($user_data) {
-    $_SESSION['user']['id'] = $user_data['id'];
-    $_SESSION['user']['roleid'] = $user_data['roleid'];
-    $_SESSION['user']['role'] = $user_data['role'];
-    $_SESSION['user']['fname'] = $user_data['first_name'];
-    $_SESSION['user']['lname'] = $user_data['last_name'];
 
-    redirect('/');
-}else {
+    if (password_verify($data2['password'], $user_data['password'])) {
+
+
+        $_SESSION['user']['id'] = $user_data['id'];
+        $_SESSION['user']['roleid'] = $user_data['roleid'];
+        $_SESSION['user']['role'] = $user_data['role'];
+        $_SESSION['user']['fname'] = $user_data['first_name'];
+        $_SESSION['user']['lname'] = $user_data['last_name'];
+
+        redirect('/');
+    }else {
+        $_SESSION['error'] = 'Неверный логин или пароль';
+        redirect('/login');
+    }
+} else {
+    $_SESSION['error'] = 'Неверный логин или пароль';
     redirect('/login');
 }
 

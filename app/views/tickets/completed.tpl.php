@@ -4,7 +4,7 @@ require VIEWS . '/includes/header.php';
 require VIEWS . '/includes/ticketsidebar.php';
 ?>
 
-
+<?php if ($c_tickets) : ?>
 <div class="card border-white mb-2 shadow bg-body rounded">
   <div class="card-body">Сортировать по:
 
@@ -13,8 +13,9 @@ require VIEWS . '/includes/ticketsidebar.php';
     <?php echo sort_link_th('Оборудованию', 'category_asc', 'category_desc'); ?>
   </div>
 </div>
+
 <div class="table-responsive">
-<?php if ($c_tickets) : ?>
+
 <?php if ($_SESSION['user']['roleid'] == 1) : ?>
 
   <table class="table">
@@ -131,15 +132,17 @@ require VIEWS . '/includes/ticketsidebar.php';
 </table>
 <?php endif; ?>
 </div>
-<?php else : ?>
-    <h1>Нет выполненных заявок</h1>
-<?php endif; ?>
-
 <div class="row">
   <div class="col align-items-center">
 <?= $pagination ?>
 </div>
 </div>
+
+<?php else : ?>
+    <h1>Нет выполненных заявок</h1>
+<?php endif; ?>
+
+
 
 <?php
 require VIEWS . '/includes/footer.php';

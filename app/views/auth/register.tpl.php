@@ -18,10 +18,13 @@
           <div class="card-body p-md-1">
             <div class="row justify-content-center">
               <div class="col-md-12 col-lg-6 col-xl-10 order-2 order-lg-1">
+           
 
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-0 mt-5">Авторизация</p>
 
                 <form action="/login" method="post" class="mx-1 mx-md-2">
+
+                <?php if (!$_SESSION['error']) :?>
 
                   <div class="d-flex flex-row align-items-center form-floating mb-5">
                       <input name="login" type="login" class="form-control border-secondary" id="floatingInput" placeholder="">
@@ -32,7 +35,9 @@
                       <input name="password" type="password" class="form-control border-secondary" id="floatingInput" placeholder="">
                       <label for="floatingInput">Пароль</label>
                   </div>
-        
+                <?php else : ?>
+                  <?= get_alerts() ?>
+                <?php endif;?>
 
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                     <button type="submit" class="btn btn-primary btn-lg">Войти</button>
@@ -40,8 +45,8 @@
 
                 </form>
                 <div class="fw-bold text-center">
-  <p>&copy; Copyright <?= date("Y") ?> by <a style="text-decoration: none;" href="https://github.com/Holm1997">Holm1997</a></p>
-  </div>
+                    <p>&copy; Copyright <?= date("Y") ?> by <a style="text-decoration: none;" href="https://github.com/Holm1997">Holm1997</a></p>
+                </div>
 
               </div>
             </div>
