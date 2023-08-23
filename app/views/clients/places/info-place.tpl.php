@@ -23,7 +23,7 @@ require_once VIEWS . '/includes/clientsidebar.php';
       
       <?php if($_SESSION['user']['roleid'] == 1) : ?>
 
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete">Удалить</button>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash3-fill"></i></button>
       <?php endif; ?>
       </div>
     </div>

@@ -10,60 +10,59 @@ require_once VIEWS . '/includes/usersidebar.php';
 
 <form action="/users/create" method="post">
 
-
-<div class="mb-3">
-  <label for="login" class="form-label">Логин</label>
-  <input name="login" type="text" class="form-control border-primary-subtle" id="login" placeholder="Задайте логин для входа в систему" value="<?= old('login') ?>">
-  
-  <?= isset($validation) ? $validation->listErrors('login') : '' ?>
-  
+<div class="row mb-3">
+    <label for="login" class="col-sm-3 col-form-label"><h5>Логин</h5></label>
+    <div class="col-sm-3">
+      <input name="login" type="text" class="form-control border border-primary" id="login" placeholder="Задайте логин для входа в систему" value="<?= old('login') ?>">
+    </div>
+    <?= isset($validation) ? $validation->listErrors('login') : '' ?>
 </div>
 
 
 
-<div class="row g-3 align-items-center">
-  <div class="col-auto">
-    <label for="password" class="col-form-label">Пароль</label>
-  </div>
-  <div class="col-auto">
-    <input name="password" type="password" id="password" class="form-control border-primary-subtle" aria-labelledby="passwordHelpInline" value="<?= old('password') ?>">
-  </div>
-  <div class="col-auto">
-    <span id="passwordHelpInline" class="form-text">
-      Must be 8-20 characters long.
-    </span>
-  </div>
+<div class="row mb-3">
+    <label for="password" class="col-sm-3 col-form-label"><h5>Пароль</h5></label>
+    <div class="col-sm-2">
+      <input name="password" type="password" class="form-control border border-primary" id="password" placeholder="Придумайте пароль" value="<?= old('password') ?>">
+    </div>
+    <?= isset($validation) ? $validation->listErrors('login') : '' ?>
 </div>
 
-<?= isset($validation) ? $validation->listErrors('password') : '' ?>
 
 
-
-<div class="mb-3">
-  <label for="first_name" class="form-label">Имя сотрудника</label>
-  <input name="first_name" type="text" class="form-control border-primary-subtle" id="first_name" placeholder="Введите имя" value="<?= old('first_name') ?>">
-  
-  <?= isset($validation) ? $validation->listErrors('first_name') : '' ?>
-
+<div class="row mb-3">
+    <label for="last_name" class="col-sm-3 col-form-label"><h5>Фамилия сотрудника</h5></label>
+    <div class="col-sm-3">
+      <input name="last_name" type="text" class="form-control border border-primary" id="last_name" placeholder="Введите фамилию..." value="<?= old('last_name') ?>">
+    </div>
+    <?= isset($validation) ? $validation->listErrors('last_name') : '' ?>
 </div>
 
-<div class="mb-3">
-  <label for="last_name" class="form-label">Фамилия сотрудника</label>
-  <input name="last_name" type="text" class="form-control border-primary-subtle" id="last_name" placeholder="Введите фамилию" value="<?= old('last_name') ?>">
-  
-  <?= isset($validation) ? $validation->listErrors('last_name') : '' ?>
 
+
+<div class="row mb-3">
+    <label for="first_name" class="col-sm-3 col-form-label"><h5>Имя сотрудника</h5></label>
+    <div class="col-sm-3">
+      <input name="first_name" type="text" class="form-control border border-primary" id="first_name" placeholder="Введите имя..." value="<?= old('first_name') ?>">
+    </div>
+    <?= isset($validation) ? $validation->listErrors('first_name') : '' ?>
 </div>
 
-<div class="mb-3">
-  <label for="phone" class="form-label">Телефон</label>
-  <input name="phone" type="text" class="form-control border-primary-subtle" id="phone" placeholder="Прим. 8(9XX)XXX-XX-XX" value="<?= old('phone') ?>">
-  
-  <?= isset($validation) ? $validation->listErrors('phone') : '' ?>
 
+
+<div class="row mb-3">
+    <label for="phone" class="col-sm-3 col-form-label"><h5>Телефон</h5></label>
+    <div class="col-sm-2">
+      <input name="phone" type="text" class="form-control border border-primary" id="phone" placeholder="8(9XX)XXX-XX-XX" value="<?= old('phone') ?>">
+    </div>
+    <?= isset($validation) ? $validation->listErrors('phone') : '' ?>
 </div>
 
-<div class="mb-3">
+
+
+
+
+<div class="mb-3 text-center">
 <button ttype="submit" class="btn btn-primary">Добавить сотрудника</button>
 
 </div>

@@ -18,7 +18,8 @@ require_once VIEWS . '/includes/ticketsidebar.php';
         <tr class="table-secondary">
             <th scope="col">№ Заявки</th>
             <th scope="col">Время изменения</th>
-            <th scope="col">Кабинет | Подразделение</th>
+            <th scope="col">Кабинет | Подразделение | Заявитель</th>
+            <th scope="col">Телефон</th>
             <th scope="col">Оборудование</th>
             <th scope="col">Причина обращения</th>
             <th scope="col">Назначенные сотрудники</th>
@@ -69,7 +70,8 @@ require_once VIEWS . '/includes/ticketsidebar.php';
           </th>
       <?php endif;?>
             <td><?= elapsed_time_for_info($ticket['id']) ?></td>      
-            <td><?= $ticket['name'].' | '.departament($ticket['pid'])?></td>
+            <td><?= $ticket['name'].' | '.departament($ticket['pid']) . ' | ' . get_client_for_ticket($ticket['client_id'])?></td>
+            <td><?= $ticket['phone'] ?></td>
             <td><?= ticket_device($ticket['id']) ?></td>
             <td><?= $ticket['subject'] ?></td>
             <td>
@@ -92,11 +94,10 @@ require_once VIEWS . '/includes/ticketsidebar.php';
         <tr class="table-secondary">
             <th scope="col">№ Заявки</th>
             <th scope="col">Дата обращения</th>
-            <th scope="col">Кабинет | Подразделение</th>
+            <th scope="col">Кабинет | Подразделение | Заявитель</th>
+            <th scope="col">Телефон</th>
             <th scope="col">Оборудование</th>
             <th scope="col">Причина обращения</th>
-            <th scope="col">Заявитель</th>
-            <th scope="col">Телефон</th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -145,24 +146,13 @@ require_once VIEWS . '/includes/ticketsidebar.php';
       <?php endif;?>
 
           <td><?= elapsed_time_for_info($ticket['id']) ?></td>  
-          <td><?= $ticket['name'].' | '.departament($ticket['pid'])?></td>
+          <td><?= $ticket['name'].' | '.departament($ticket['pid']) . ' | ' . get_client_for_ticket($ticket['client_id'])?></td>
+          <td><?= $ticket['phone'] ?></td>
           <td><?= ticket_device($ticket['id']) ?></td>
           <td><?= $ticket['subject'] ?></td>
-
-      <?php if ($ticket['client_id']) :?>
-        <?php foreach ($clients as $client) :?>
-          <?php if ($client['id'] == $ticket['client_id']) :?>
-            <td><?= $client['name'] ?></td>
-          <?php endif;?>
-        <?php endforeach;?>
-      <?php else :?>
-            <td>-----</td>
-      <?php endif;?>
-
-            <td><?= $ticket['phone'] ?></td>
     
 
-            <td><a href="/tickets/show?id=<?= $ticket['id']?>" ><i class="bi bi-box-arrow-in-up-right"></i></a></td>
+          <td><a href="/tickets/show?id=<?= $ticket['id']?>" ><i class="bi bi-box-arrow-in-up-right"></i></a></td>
       </tr>
     <?php endforeach; ?>
     

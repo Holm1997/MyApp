@@ -53,7 +53,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
               <?php if($_SESSION['user']['roleid'] == 1) : ?>
 
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete">
-                  Удалить
+                <i class="bi bi-trash3-fill"></i>
                 </button>
 
               <?php endif; ?>
@@ -211,14 +211,17 @@ require_once VIEWS . '/includes/ticketsidebar.php';
 
 <div class="container-fluid">
 
+
 <form action="" method="post">
 
+
 <?php if ($ticket['ticket_status'] == 'Новая заявка' or $ticket['ticket_status'] == 'Повторная заявка') :?>
+<?php if ($access) :?>
   <div class="row mb-2 mb-3 text-center">
     <div class="col">
 
-<input type="hidden" name="accept" value="ok">
-<button type="submit" class="btn btn-primary">Принять заявку</button>
+      <input type="hidden" name="accept" value="ok">
+      <button type="submit" class="btn btn-primary">Принять заявку</button>
 </div>
 </div>
 <?php elseif ($ticket['ticket_status'] == 'В работе') :?>
@@ -261,6 +264,7 @@ require_once VIEWS . '/includes/ticketsidebar.php';
 
 </div>
 </div>
+<?php endif;?>
 <?php elseif ($ticket['ticket_status'] == 'Не выполнена') :?>
   <div class="row mb-3 text-center">
   <div class="col">

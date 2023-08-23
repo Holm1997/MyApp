@@ -29,7 +29,7 @@ require_once VIEWS . '/includes/clientsidebar.php';
             <th scope="row"><?= $client['name'] ?></th>
 
             <?php if ($client['phone']) : ?> 
-              <td><?= $client['phone'] ?></td>
+              <td><?= '+7 ' . $client['phone'] ?></td>
             <?php else : ?>
               <td><?= $client['placephone'] ?></td>
             <?php endif;?>

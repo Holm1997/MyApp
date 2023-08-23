@@ -10,7 +10,7 @@ require_once VIEWS . '/includes/clientsidebar.php';
     <?php if ($client['phone']) : ?>
       <div class="col-4">
         <h1><?=$client['name']?></h1>
-        <p><?='Телефон: ' . $client['phone']?></p>
+        <p><?='Телефон: +7 ' . $client['phone']?></p>
     <?php else : ?>
       <div class="col-4">
         <h1><?=$client['name']?></h1>
@@ -161,15 +161,17 @@ require_once VIEWS . '/includes/clientsidebar.php';
         <h1 class="modal-title fs-5" id="exampleModalLabel">Добавить телефон</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <div class="input-group ">
-          <input type="tel" pattern="8-[0-9]{3}-[0-9]{3}-[0-9]{3}" class="form-control border-primary" placeholder="8-9XX-XXXX-XXX" required>
+    <form action="/clients/customers/add-phone" method="post">
+      <div class="modal-body d-flex align-items-center">
+        <h6 class="mt-2">+7</h6>
+        <div class="input-group ms-2">
+          <input name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" class="form-control border-primary" placeholder="9XX-XXX-XX-XX" required>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
 
-    <form action="/clients/customers" method="post">
+    
         <input type="hidden" name="id" value="<?= $client['id']?>">
         <button type="submit" class="btn btn-success">Добавить</button>
     </form>

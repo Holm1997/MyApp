@@ -36,6 +36,22 @@ if (!$user) {
 }
 
 
+$tickets = db()->query("SELECT t.id, t.subject,t.description, t.ticket_status, t.creation_date, t.working_date, t.closing_date, t.previous,
+                        p.name, p.phone, cat.name as catname,p.id as pid, t.client_id, count(ticket_id) users 
+                        FROM ticket t inner join ticket_user tu ON tu.ticket_id = t.id
+                        inner join place p on t.place_id = p.id
+                        inner join category cat on t.category_id = cat.id               
+                        WHERE tu.user_id = $id
+                        GROUP BY t.id 
+                        ORDER BY t.ticket_status = 'Повторная заявка' DESC, t.ticket_status = 'Новая заявка' DESC,
+                        t.working_date DESC, t.creation_date DESC")->findAll();
+
+
+$clients = db()->query("SELECT t.client_id, c.name from client c
+                        INNER JOIN ticket t ON t.client_id = c.id")->findAll();
+
+$users= db()->query("select tu.ticket_id, u.last_name, u.first_name FROM ticket_user tu INNER JOIN user u ON tu.user_id = u.id")->findAll();
+
 
 
 $title = "Сотрудник {$user['last_name']}";

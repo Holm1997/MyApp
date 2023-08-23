@@ -40,7 +40,7 @@
 
                 </form>
                 <div class="fw-bold text-center">
-  <p>&copy; Copyright <?= date("Y") ?></p>
+  <p>&copy; Copyright <?= date("Y") ?> by <a style="text-decoration: none;" href="https://github.com/Holm1997">Holm1997</a></p>
   </div>
 
               </div>

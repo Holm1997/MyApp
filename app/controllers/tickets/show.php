@@ -176,11 +176,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } 
 
 $ticket = db()->query("SELECT t.id, t.subject, t.ticket_status, t.description,
-t.closing_date, t.working_date, t.creation_date, t.client_id, t.previous, cat.id as catid,
-cat.name as catname, p.id as pid, p.name, p.phone
-FROM ticket t INNER JOIN category cat ON t.category_id = cat.id 
-INNER JOIN place p ON t.place_id = p.id
-WHERE t.id = '$id'")->find();
+                    t.closing_date, t.working_date, t.creation_date, t.client_id, t.previous, cat.id as catid,
+                    cat.name as catname, p.id as pid, p.name, p.phone
+                    FROM ticket t INNER JOIN category cat ON t.category_id = cat.id 
+                    INNER JOIN place p ON t.place_id = p.id
+                    WHERE t.id = '$id'")->find();
 $ticketid = $ticket['id'];
 
 $catid = strval($ticket['catid']);
@@ -203,6 +203,16 @@ $departaments = db()->query("SELECT `id`, `name` FROM departament")->findAll();
 
 
 $users = db()->query("SELECT u.id, u.last_name, u.first_name FROM user u INNER JOIN ticket_user tu ON u.id = tu.user_id WHERE tu.ticket_id = '$id'")->findAll();
+
+foreach ($users as $user) {
+    if ($user['id'] == $_SESSION['user']['id']) {
+        $access = true;
+        break;
+    } else {
+        $access = false;
+    }
+}
+
 
 $td = db()->query("SELECT device_id FROM ticket_device WHERE ticket_id = '$id'")->find();
 

@@ -8,10 +8,9 @@ require VIEWS . '/includes/ticketsidebar.php';
 <div class="card border-white mb-2 shadow bg-body rounded">
   <div class="card-body">Сортировать по:
 
-  <?php echo sort_link_th('дата', 'date_asc', 'date_desc'); ?>
-    <?php echo sort_link_th('Кабинет', 'place_asc', 'place_desc'); ?>
-    <?php echo sort_link_th('Оборудование', 'category_asc', 'category_desc'); ?>
-    <?php echo sort_link_th('Заявители', 'client_asc', 'client_desc'); ?>
+  <?php echo sort_link_th('Дате', 'date_asc', 'date_desc'); ?>
+    <?php echo sort_link_th('Кабинету', 'place_asc', 'place_desc'); ?>
+    <?php echo sort_link_th('Оборудованию', 'category_asc', 'category_desc'); ?>
   </div>
 </div>
 <div class="table-responsive">
@@ -23,7 +22,7 @@ require VIEWS . '/includes/ticketsidebar.php';
         <tr class="table-secondary">
             <th scope="col">№ Заявки</th>
             <th scope="col">Время завершения</th>
-            <th scope="col">Кабинет | Подразделение</th>
+            <th scope="col">Кабинет | Подразделение | Заявитель</th>
             <th scope="col">Оборудование</th>
             <th scope="col">Причина обращения</th>
             <th scope="col">Проведенные работы</th>
@@ -56,7 +55,7 @@ require VIEWS . '/includes/ticketsidebar.php';
           </th>
       <?php endif;?>
             <td><?= elapsed_time_for_info($ticket['id']) ?></td>
-            <td><?= $ticket['name'].' | '.departament($ticket['pid'])?></td>
+            <td><?= $ticket['name'].' | '.departament($ticket['pid']) . ' | ' . get_client_for_ticket($ticket['client_id'])?></td>
             <td><?= ticket_device($ticket['id']) ?></td>
             <td><?= $ticket['subject'] ?></td>
             <th><?= $ticket['description'] ?></th>
@@ -80,12 +79,11 @@ require VIEWS . '/includes/ticketsidebar.php';
         <tr class="table-secondary">
             <th scope="col">№ Заявки</th>
             <th scope="col">Дата завершения</th>
-            <th scope="col">Кабинет | Подразделение</th>
+            <th scope="col">Кабинет | Подразделение | Заявитель</th>
+            <th scope="col">Телефон</th>
             <th scope="col">Оборудование</th>
             <th scope="col">Причина обращения</th>
             <th scope="col">Проведенные работы</th>
-            <th scope="col">Заявитель</th>
-            <th scope="col">Телефон</th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -114,18 +112,17 @@ require VIEWS . '/includes/ticketsidebar.php';
           </th>
       <?php endif;?>
             <td><?= elapsed_time_for_info($ticket['id']) ?></td>
-            <td><?= $ticket['name'].' | '.departament($ticket['pid'])?></td>
+            <td><?= $ticket['name'].' | '.departament($ticket['pid']) .' | '. get_client_for_ticket($ticket['client_id'])?></td>
+      <?php if ($ticket['phone']) :?>
+            <td><?= $ticket['phone'] ?></td>
+      <?php else :?>
+            <td><?= $ticket['dphone'] ?></td>
+      <?php endif; ?>
             <td><?= ticket_device($ticket['id']) ?></td>
             <td><?= $ticket['subject'] ?></td>
             <th><?= $ticket['description'] ?></th>
-            <td><?= $ticket['cname'] ?></td>
 
             
-    <?php if ($ticket['phone']) :?>
-            <td><?= $ticket['phone'] ?></td>
-    <?php else :?>
-            <td><?= $ticket['dphone'] ?></td>
-    <?php endif; ?>
             <td><a href="/tickets/show?id=<?= $ticket['id']?>" ><i class="bi bi-box-arrow-in-up-right"></i></a></td>
     </tr>
     <?php endforeach; ?>

@@ -21,13 +21,13 @@ require_once VIEWS . '/includes/usersidebar.php';
       <?php if ($user['urid'] == 1) : ?>
       <tr class="table-primary">
       <?php else : ?>
-      <tr class="table-info">
+      <tr>
       <?php endif;?>
             <td><?= $user['last_name'] .' ' . $user['first_name']?></td>
             <td><?= $user['phone'] ?></td>
             <td scope="row"><?= $user['role'] ?></td>
       <?php if ($_SESSION['user']['roleid'] == 1) : ?>
-            <td><a href='users/show?id=<?=$user['id']?>'>Detail</a></td>
+            <td><a href='users/show?id=<?=$user['id']?>'><i class="bi bi-box-arrow-in-up-right"></i></a></td>
       <?php endif; ?>
       </tr>
     <?php endforeach; ?>

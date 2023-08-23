@@ -4,7 +4,7 @@ require VIEWS . '/includes/header.php';
 require VIEWS . '/includes/clientsidebar.php';
 ?>
 
-<form action="clients/create-customer" method="post">
+<form action="clients/customers/create-customer" method="post">
 
 <div class="row mt-3 mb-3">
 <label for="name" class="col-sm-3 col-form-label"><h5>ФИО заявителя</h5></label>
@@ -40,6 +40,6 @@ require VIEWS . '/includes/clientsidebar.php';
   </div>
 </div>
 
-</from>
+</form>
 <?php
 require VIEWS . '/includes/footer.php';

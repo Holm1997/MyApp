@@ -94,6 +94,40 @@ function check_auth()
 }
 
 
+function get_tickets($completed = false, $sort_sql, $start, $per_page, $role = 1, $user_id = 0) {
+        $user = '';
+
+        if ($role == 2) {
+                $user .= 'and tu.user_id = ' . $user_id;
+
+        }
+
+        if ($completed == false) {
+
+                $tickets = db()->query("SELECT t.id, t.subject, t.ticket_status, t.creation_date, t.working_date, t.previous, t.client_id,
+                                p.name, p.phone, cat.name as catname,p.id as pid, count(ticket_id) users 
+                                FROM ticket t inner join ticket_user tu ON tu.ticket_id = t.id
+                                inner join place p on t.place_id = p.id
+                                inner join category cat on t.category_id = cat.id               
+                                WHERE (t.ticket_status = 'Новая заявка' or t.ticket_status = 'В работе' or t.ticket_status='Повторная заявка') $user
+                                GROUP BY t.id 
+                                ORDER BY t.ticket_status = 'Повторная заявка' DESC, t.ticket_status = 'Новая заявка' DESC,
+                                t.working_date DESC, t.creation_date DESC LIMIT $start, $per_page")->findAll();
+        } else {
+
+                $tickets = db()->query("SELECT t.id, t.subject, t.description, t.ticket_status, t.client_id, t.closing_date,t.previous,
+                                p.name, p.phone, p.id as pid, cat.name as catname, count(ticket_id) users 
+                                FROM ticket t inner join ticket_user tu ON tu.ticket_id = t.id
+                                inner join place p on t.place_id = p.id
+                                inner join category cat on t.category_id = cat.id               
+                                WHERE (t.ticket_status = 'Выполнена успешно' or t.ticket_status = 'Не выполнена') $user
+                                GROUP BY t.id
+                                ORDER by {$sort_sql} LIMIT $start, $per_page")->findAll();
+        }
+
+        return $tickets;
+}
+
 function departament($place) {
 
         $dep = db()->query("SELECT d.name FROM departament d
@@ -108,6 +142,18 @@ function departament($place) {
     
 }
 
+function get_client_for_ticket($ticket_id) {
+        if ($ticket_id) {
+
+                $client = db()->query("SELECT name FROM client
+                        WHERE id = $ticket_id")->find();
+        
+                return $client['name'];
+        } else {
+                return '-----';
+        }
+}
+
 function clients_for_place($place) {
         $count_clients = db()->query("SELECT count(c.place_id) nums FROM place p
                             INNER JOIN client c ON c.place_id = p.id
@@ -116,7 +162,7 @@ function clients_for_place($place) {
         if ($count_clients['nums']){
                 return $count_clients['nums'];
         } else {
-                return '0';
+                return "<font color='red'>0</font>";
         }
 
 }

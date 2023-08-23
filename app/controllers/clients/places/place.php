@@ -2,7 +2,8 @@
 
 
 $places = db()->query("SELECT id, name, phone
-                        FROM place")->findAll();
+                    FROM place
+                    ORDER BY name DESC")->findAll();
 
 $count_clients = db()->query("SELECT p.id, count(c.place_id) nums FROM place p
                             INNER JOIN client c ON c.place_id = p.id

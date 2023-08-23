@@ -14,8 +14,6 @@ $sort_list = array(
     'place_desc' => 'p.name DESC',
     'category_asc'   => 'cat.name',
     'category_desc'  => 'cat.name DESC',
-    'client_asc' => 'c.name',
-    'client_desc' => 'c.name DESC',
 );
 
 if (array_key_exists($sort, $sort_list)) {
@@ -41,15 +39,8 @@ if ($_SESSION['user']['roleid'] == 1) {
 
 
 
-  
+    $c_tickets = get_tickets(true , $sort_sql, $start, $per_page);
 
-    $c_tickets = db()->query("SELECT t.id, t.subject, t.description, t.ticket_status, t.closing_date,t.previous, p.name, p.phone, p.id as pid, cat.name as catname, count(ticket_id) users 
-    FROM ticket t inner join ticket_user tu ON tu.ticket_id = t.id
-    inner join place p on t.place_id = p.id
-    inner join category cat on t.category_id = cat.id               
-    WHERE t.ticket_status = 'Выполнена успешно' or t.ticket_status = 'Не выполнена'
-    GROUP BY t.id
-    ORDER by {$sort_sql} LIMIT $start, $per_page")->findAll();
 
     $users= db()->query("select tu.ticket_id, u.last_name, u.first_name FROM ticket_user tu INNER JOIN user u ON tu.user_id = u.id")->findAll();
 
@@ -69,20 +60,12 @@ if ($_SESSION['user']['roleid'] == 1) {
 
     $start = $pagination->getStart();
 
-    $c_tickets = db()->query("SELECT t.id, t.subject, t.description, t.ticket_status, t.closing_date, t.previous,c.name as cname, t.client_id, p.name, p.phone, p.id as pid, cat.name as catname, count(ticket_id) users
-    FROM ticket t 
-    INNER JOIN client c On t.client_id = c.id
-    inner join ticket_user tu ON tu.ticket_id = t.id
-    inner join place p on t.place_id = p.id
-    inner join category cat on t.category_id = cat.id
-    WHERE (t.ticket_status = 'Не выполнена' or t.ticket_status = 'Выполнена успешно') and tu.user_id = '$user_id'
-    GROUP BY t.id
-    ORDER by {$sort_sql}")->findAll();
+    $c_tickets = get_tickets(true , $sort_sql, $start, $per_page, 2, $user_id);
 
 
 }
 
-$clients = db()->query("SELECT `id`, `name` FROM client")->findAll();
+
 
 
 

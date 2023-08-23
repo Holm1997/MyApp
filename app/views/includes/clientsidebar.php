@@ -9,18 +9,18 @@
   </li>
 
   <li class="nav-item">
-  <?php if ($_SERVER['REQUEST_URI'] == '/clients/departaments') :?>
-      <a class="nav-link active bg-secondary text-white" aria-current="page" href="client/departament"><i class="bi bi-diagram-2-fill me-2"></i>Подразделения</a>
-    <?php else :?>
-      <a class="nav-link" href="clients/departaments"><i class="bi bi-diagram-2-fill me-2"></i>Подразделения</a>
-    <?php endif;?>
-  </li>
-
-  <li class="nav-item">
   <?php if ($_SERVER['REQUEST_URI'] == '/clients/places') :?>
       <a class="nav-link active bg-secondary text-white" aria-current="page" href="clients/places"><i class="bi bi-houses-fill me-2"></i>Кабинеты/помещения</a>
     <?php else :?>
       <a class="nav-link" href="clients/places"><i class="bi bi-houses-fill me-2"></i>Кабинеты/помещения</a>
+    <?php endif;?>
+  </li>
+
+  <li class="nav-item">
+  <?php if ($_SERVER['REQUEST_URI'] == '/clients/departaments') :?>
+      <a class="nav-link active bg-secondary text-white" aria-current="page" href="client/departament"><i class="bi bi-diagram-2-fill me-2"></i>Подразделения</a>
+    <?php else :?>
+      <a class="nav-link" href="clients/departaments"><i class="bi bi-diagram-2-fill me-2"></i>Подразделения</a>
     <?php endif;?>
   </li>
 
