@@ -9,20 +9,32 @@ require_once VIEWS . '/includes/usersidebar.php';
     <div class="row border-bottom border-white bg-black text-white">
         <div class="col">
         <h1><?=$user['last_name'] .' '. $user['first_name'] ?></h1>
-
+	<?php if ($user['id'] != 1) :?>
         <p><?=$user['phone']?></p>
-
+	<?php endif; ?>
         </div>
-        <div class="col"> 
+        <div class="col">
+	<?php if ($_SESSION['user']['id'] == 1) : ?>
+
+	<p>Логин:</p>
+	<h4><?= $user['login']?></h4>
+	<?php endif;?> 
             
         </div>
         <div class="col">
+	<?php if ($user['id'] != 1) : ?>
             <h4><?= $user['role'] ?></h4>
-            <?php if($_SESSION['user']['roleid'] == 1) : ?>
+	<?php endif; ?>
+            <?php if(($_SESSION['user']['roleid'] == 1 and $_SESSION['user']['id'] == 1) and ($user['id'] != $_SESSION['user']['id'])) : ?>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <p>Удалить</p>
                 </button>
-            <?php endif; ?>
+	    <?php elseif (($_SESSION['user']['roleid'] == 1 and $user['roleid'] != 1)) : ?>
+            
+		<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-targer"#exampleModal">
+		<p>Удалить</p>
+		</button>
+	    <?php endif; ?>
         
         </div>
     </div>

@@ -18,6 +18,7 @@ require_once VIEWS . '/includes/usersidebar.php';
 
   <tbody class="table-group-divider">
     <?php foreach ($users as $user) : ?>
+	<?php if ($user['id'] != 1) :?>
       <?php if ($user['urid'] == 1) : ?>
       <tr class="table-primary">
       <?php else : ?>
@@ -30,6 +31,7 @@ require_once VIEWS . '/includes/usersidebar.php';
             <td><a href='users/show?id=<?=$user['id']?>'><i class="bi bi-box-arrow-in-up-right"></i></a></td>
       <?php endif; ?>
       </tr>
+	<?php endif; ?>
     <?php endforeach; ?>
     
   </tbody>

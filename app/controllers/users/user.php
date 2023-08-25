@@ -9,7 +9,7 @@ if ($_SESSION['user']['roleid'] == 1) {
         
 }
 
-$user = db()->query("SELECT u.id, u.last_name, u.first_name, u.phone, ur.role 
+$user = db()->query("SELECT u.id, u.last_name, u.first_name, u.login, u.phone, ur.role, ur.id as roleid 
                     FROM user u INNER JOIN user_roles ur ON u.user_roles_id = ur.id WHERE u.id = '$id'")->find();
 
 $all = db()->query("SELECT count(*) nums FROM ticket_user WHERE user_id = '$id'")->find();

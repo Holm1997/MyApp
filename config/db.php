@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'host' => 'localhost',
-    'dbname' => 'otrs',
-    'username' => 'otrs',
-    'password' => 'otrs1234',
+    'host' => 'HOST',
+    'dbname' => 'DBNAME',
+    'username' => 'DBUSER',
+    'password' => 'DBPASSWORD',
     'charset' => 'utf8',
     'options' => [
     

@@ -7,4 +7,4 @@ define("CORE", ROOT . '/vendor/myfrm/core');
 define("APP", ROOT . '/app');
 define("CONTROLLERS", APP . '/controllers');
 define("VIEWS", APP . '/views');
-define("PATH", 'https://test.9395390.keenetic.pro');
+define("PATH", 'YOUR-DOMAIN-NAME');

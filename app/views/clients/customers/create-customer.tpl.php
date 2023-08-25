@@ -14,7 +14,7 @@ require VIEWS . '/includes/clientsidebar.php';
 </div>
 
 <div class="row mb-3">
-<label for="phone" class="col-sm-3 col-form-label"><h5>ФИО заявителя</h5></label>
+<label for="phone" class="col-sm-3 col-form-label"><h5>Телефон (необязательно)</h5></label>
 <div class="col-sm-5">
 <input name="phone" type="text" class="form-control border-primary" id="phone" placeholder="89XXXXXXXXX">
 </div>

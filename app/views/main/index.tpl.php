@@ -5,8 +5,12 @@ require_once VIEWS . '/includes/header.php';
 
 
 
-
+<?= get_alerts(); ?>
+<?php if ($_SESSION['user']['id'] == 1) :?>
+<h1><?= 'Привет, '.$_SESSION['user']['lname'].'!' ?></h1>
+<?php else :?>
 <h1><?= 'Привет, '.$_SESSION['user']['fname'].'!' ?></h1>
+<?php endif;?>
 <h4>Добро пожаловать в систему учета заявок участка ВТ ДИЭ МГУ. Скоро здесь появится краткая инструкция по использованию данного приложения, но пока ее нет советую разобраться самому.</h4>
 
 <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>

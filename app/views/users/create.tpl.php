@@ -58,7 +58,21 @@ require_once VIEWS . '/includes/usersidebar.php';
     <?= isset($validation) ? $validation->listErrors('phone') : '' ?>
 </div>
 
+<?php if ($_SESSION['user']['id'] == 1) : ?>
+<fieldset class="row mb-3">
+	<legend class="col-form-label col-sm-3 pt-0"><h5>Выберите должность сотрудника</h5></legend>
+	<div class="col-sm-5">
+	<?php foreach ($roles as $role) : ?>
+		<div class="form-check">
+		<input name="role_id" class="form-check-input border-primary" type="radio" id="role" value="<?= $role['id']?>">
+		<label class="form-check-label" for="role">
+			<?= $role['role'] ?>
+		</label>
+		</div>
+	<?php endforeach;?>
+</fieldset>
 
+<?php endif;?>
 
 
 

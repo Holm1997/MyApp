@@ -49,7 +49,25 @@ use myfrm\Validator;
     
     if (!$validation->hasErrors()) {
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+	if ($_SESSION['user']['id'] == 1) {
+	if ($_POST['role_id']) {
+		$role_id = $_POST['role_id'];
 
+		if (db()->query("insert into user (`user_roles_id`, `login`, `password`, `last_name`, `first_name`, `phone`)
+		values ($role_id, :login, :password, :last_name, :first_name, :phone)", $data)) {
+		
+			$_SESSION['success'] = "ОК";
+		} else {
+
+			$_SESSION['error'] = "DB error";
+		}
+	
+		redirect('/users/create');	
+	} else {
+		$_SESSION['error'] = 'Не вырбрана должность сотрудника';
+		redirect('/users/create'); 
+}
+} else {
 
         if (db()->query("insert into user (`user_roles_id`,`login`, `password`, `last_name`, `first_name`, `phone`) 
         values (2, :login, :password, :last_name, :first_name, :phone)", $data)) {
@@ -63,7 +81,8 @@ use myfrm\Validator;
         }
 
         redirect('/users/create');
-    } else {
+}
+   } else {
         require VIEWS . '/users/create.tpl.php';
     }
 

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <meta name="referrer">
     <base href="<?= PATH ?>/">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href='assets/main.css'>
@@ -67,11 +68,13 @@
         <?php if (check_auth()):?>
         <li class="nav-item dropdown border-end border-white">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <?= $_SESSION['user']['lname'] .' '.$_SESSION['user']['fname']?>
+          <?= $_SESSION['user']['login'] .' (' .$_SESSION['user']['lname'].' '. $_SESSION['user']['fname'].')'?>
           </a>
           <ul class="dropdown-menu">
+	<?php if ($_SESSION['user']['id'] != 1) : ?>
             <li><a class="dropdown-item" href="/users/show?id=<?= $_SESSION['user']['id']?>">Статистика</a></li>
-            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Сменить пароль</a></li>
+        <?php endif; ?>   
+	    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Сменить пароль</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -89,33 +92,27 @@
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header border-bottom border-primary">
+      <div class="modal-header border-bottom border-secondary">
         <h1 class="modal-title fs-5" id="staticBackdropLabel">Смена пароля</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form action="/users/change-password" method="post">
       <div class="modal-body">
         <label for="inputOldPassword" class="form-label">Введите старый пароль</label>
-        <input name="oldpassword" type="password" id="inputOldPassword" class="form-control" aria-describedby="passwordHelpBlock">
-        <div id="passwordHelpBlock" class="form-text border-bottom border-primary">
-        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-        </div>
+        <input name="oldpassword" type="password" id="inputOldPassword" class="form-control mb-3 border-primary" aria-describedby="passwordHelpBlock">
+        
         
         <label for="inputPassword1" class="form-label">Введите новый пароль</label>
-        <input name="password1" type="password" id="inputPassword1" class="form-control" aria-describedby="passwordHelpBlock">
-        <div id="passwordHelpBlock" class="form-text border-bottom border-primary">
-        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-        </div>
+        <input name="password1" type="password" id="inputPassword1" class="form-control mb-3 border-primary" aria-describedby="passwordHelpBlock">
+        
 
         <label for="inputPassword2" class="form-label">Повторно введите новый пароль</label>
-        <input name="password2" type="password" id="inputPassword2" class="form-control" aria-describedby="passwordHelpBlock">
-        <div id="passwordHelpBlock" class="form-text">
-        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-        </div>
+        <input name="password2" type="password" id="inputPassword2" class="form-control border-primary" aria-describedby="passwordHelpBlock">
+        
       </div>
-      <div class="modal-footer border-bottom border-primary">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-success">Understood</button>
+      <div class="modal-footer border-bottom border-secondary">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+        <button type="submit" class="btn btn-success">Изменить</button>
       </div>
         </form>
     </div>
